@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <Folder Include="Configuracoes/" />
+    <Folder Include="Dominio/" />
+    <Folder Include="Dominio/Entidades/" />
   </ItemGroup>
 
 </Project>
