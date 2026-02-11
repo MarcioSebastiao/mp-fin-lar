@@ -23,4 +23,6 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
 
         return new(Array.Empty<string>());
     }
+
+    public Task<IEnumerable<PessoaRespostaDTO>> ObterAsync() => _repositorio.ObterPessoasAsync();
 }

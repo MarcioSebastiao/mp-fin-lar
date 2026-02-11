@@ -21,4 +21,11 @@ public sealed class PessoaController : MainController
         
         return RespostaDeErro(resultado.Notificacoes);
     }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<PessoaRespostaDTO>>> Obter()
+    {
+        var pessoas = await _aplicacao.ObterAsync();
+        return Ok(pessoas);
+    }
 }
