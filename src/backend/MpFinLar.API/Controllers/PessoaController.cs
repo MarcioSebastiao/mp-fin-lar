@@ -18,9 +18,20 @@ public sealed class PessoaController : MainController
         var resultado = await _aplicacao.CriarAsync(pessoaDTO);
         if (resultado.Sucesso)
             return Ok();
+
+        return RespostaDeErro(resultado.Notificacoes);
+    }
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult> Atualizar(Guid id, PessoaDTO pessoaDTO)
+    {
+        var resultado = await _aplicacao.AtualizarAsync(id, pessoaDTO);
+        if (resultado.Sucesso)
+            return Ok();
         
         return RespostaDeErro(resultado.Notificacoes);
     }
+
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> Remover(Guid id)
@@ -28,7 +39,7 @@ public sealed class PessoaController : MainController
         var resultado = await _aplicacao.RemoverAsync(id);
         if (resultado.Sucesso)
             return Ok();
-        
+
         return RespostaDeErro(resultado.Notificacoes);
     }
 

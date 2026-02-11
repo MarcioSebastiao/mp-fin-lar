@@ -24,6 +24,21 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
         return new(Array.Empty<string>());
     }
 
+    public async Task<ResultadoAplicacao> AtualizarAsync(Guid id, PessoaDTO dto)
+    {
+        var pessoa = await _repositorio.ObterPorIdAsync(id);
+        if (pessoa is null)
+            return new(["Pessoa não encontrada."]);
+        
+        pessoa.Atualizar(dto.Nome, dto.Idade);
+
+        var sucesso = await _repositorio.AtualizarAsync(pessoa);
+        if (!sucesso)
+            return new(pessoa.Notificacoes);
+
+        return new(Array.Empty<string>());
+    }
+
     public async Task<ResultadoAplicacao> RemoverAsync(Guid id)
     {
         var sucesso = await _repositorio.RemoverAsync(id);

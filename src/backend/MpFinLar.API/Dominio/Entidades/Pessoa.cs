@@ -28,6 +28,17 @@ public sealed class Pessoa : Entidade
             Nome = nome;
     }
 
+    public void Atualizar(string nome, int idade)
+    {
+        Validar(nome);
+
+        if (EhValido)
+        {
+            Nome = nome;
+            Idade = idade;
+        }
+    }
+
     private void Validar(string nome)
     {
         if (string.IsNullOrWhiteSpace(nome))
