@@ -46,7 +46,7 @@ public sealed class RepositorioPessoa : IRepositorioPessoa
 
     public async Task<bool> RemoverAsync(Guid id)
     {
-        var pessoa = await _contexto.Pessoas.FirstOrDefaultAsync(e => e.Id == id);
+        var pessoa = await _contexto.Pessoas.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         if (pessoa == null)
             return false;
 
