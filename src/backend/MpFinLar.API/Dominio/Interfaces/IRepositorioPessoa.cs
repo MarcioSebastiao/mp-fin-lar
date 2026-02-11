@@ -1,0 +1,9 @@
+using MpFinLar.API.Dominio.Entidades;
+
+namespace MpFinLar.API.Dominio.Interfaces;
+
+public interface IRepositorioPessoa
+{
+    Task AdicionarAsync(Pessoa pessoa);
+
+}

@@ -21,6 +21,7 @@
     <Folder Include="Configuracoes/" />
     <Folder Include="Dominio/" />
     <Folder Include="Dominio/Entidades/" />
+    <Folder Include="Dominio/Interfaces/" />
     <Folder Include="Infra/" />
     <Folder Include="Infra/Dados/" />
     <Folder Include="Infra/Dados/Mapeamentos/" />
