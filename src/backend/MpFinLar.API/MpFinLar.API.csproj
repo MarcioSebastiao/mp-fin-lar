@@ -18,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Aplicacao/" />
+    <Folder Include="Aplicacao/Pessoa/" />
     <Folder Include="Configuracoes/" />
     <Folder Include="Dominio/" />
     <Folder Include="Dominio/Entidades/" />

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MpFinLar.API.Aplicacao.Pessoas;
 using MpFinLar.API.Configuracoes;
 using MpFinLar.API.Dominio.Interfaces;
 using MpFinLar.API.Infra.Dados;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<Contexto>(options =>
         // Obtém a string de conexão "DefaultConnection" a partir do arquivo de configuração
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IPessoaAplicacao, PessoaAplicacao>();
 builder.Services.AddScoped<IRepositorioPessoa, RepositorioPessoa>();
 
 var app = builder.Build();
