@@ -28,6 +28,17 @@ public sealed class RepositorioPessoa : IRepositorioPessoa
     {
         return await _contexto.Pessoas.Select(Mapear()).ToListAsync();
     }
+    
+    public async Task<bool> RemoverAsync(Guid id)
+    {
+        var pessoa = await _contexto.Pessoas.FirstOrDefaultAsync(e => e.Id == id);
+        if(pessoa == null)
+            return false;
+        
+        _contexto.Pessoas.Remove(pessoa);
+        await _contexto.SaveChangesAsync();
+        return true;
+    }
 
     /// <summary>
     /// Expressão Linq para mapear de entidade Pessoa para a DTO
@@ -43,4 +54,5 @@ public sealed class RepositorioPessoa : IRepositorioPessoa
         };
     }
 
+    
 }

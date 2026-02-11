@@ -24,5 +24,14 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
         return new(Array.Empty<string>());
     }
 
+    public async Task<ResultadoAplicacao> RemoverAsync(Guid id)
+    {
+        var sucesso = await _repositorio.RemoverAsync(id);
+        if (!sucesso)
+            return new(["Pessoa não encontrada."]);
+
+        return new(Array.Empty<string>());
+    }
+
     public Task<IEnumerable<PessoaRespostaDTO>> ObterAsync() => _repositorio.ObterPessoasAsync();
 }

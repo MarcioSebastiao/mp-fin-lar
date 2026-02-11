@@ -22,6 +22,16 @@ public sealed class PessoaController : MainController
         return RespostaDeErro(resultado.Notificacoes);
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult> Remover(Guid id)
+    {
+        var resultado = await _aplicacao.RemoverAsync(id);
+        if (resultado.Sucesso)
+            return Ok();
+        
+        return RespostaDeErro(resultado.Notificacoes);
+    }
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<PessoaRespostaDTO>>> Obter()
     {

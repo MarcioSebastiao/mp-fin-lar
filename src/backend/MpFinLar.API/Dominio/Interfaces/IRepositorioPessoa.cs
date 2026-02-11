@@ -7,5 +7,7 @@ public interface IRepositorioPessoa
 {
     Task AdicionarAsync(Pessoa pessoa);
     Task<IEnumerable<PessoaRespostaDTO>> ObterPessoasAsync();
+    Task<bool> RemoverAsync(Guid id);
+
 
 }
