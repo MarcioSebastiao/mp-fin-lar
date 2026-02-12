@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.ConfigurarSwagger();
+builder.Services.ConfigurarCors(builder.Configuration);
 
 // Registra o DbContext Contexto no container de injeção de dependência
 builder.Services.AddDbContext<Contexto>(options =>
@@ -28,5 +29,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UsarCofiguracaoCors();
 
 app.Run();
