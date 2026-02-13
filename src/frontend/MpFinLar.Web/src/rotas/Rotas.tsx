@@ -1,5 +1,6 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import App from "../paginas/App";
+import Pessoas from "../paginas/pessoas/Pessoas";
 
 /**
  * Componente responsável por configurar as rotas da aplicação.
@@ -10,6 +11,7 @@ export default function Rotas() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App />} />
+                <Route path="/pessoas" element={<Pessoas />} />
             </Routes>
         </BrowserRouter>
     );

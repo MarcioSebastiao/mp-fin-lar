@@ -1,14 +1,14 @@
-import './App.css'
+import { Link } from "react-router-dom";
+import "./App.css";
 
 function App() {
-
-  return (
-    <>
-      <div>
-        Hello World!
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div>
+                <Link to="/Pessoas">Pessoas</Link>
+            </div>
+        </>
+    );
 }
 
-export default App
+export default App;
