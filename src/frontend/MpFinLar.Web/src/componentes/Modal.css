@@ -1,0 +1,30 @@
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #00000050;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-conteudo {
+  background: #333f49;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  position: relative;
+}
+
+.modal-fechar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
