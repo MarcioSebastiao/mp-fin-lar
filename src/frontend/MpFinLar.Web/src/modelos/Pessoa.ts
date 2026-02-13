@@ -4,4 +4,4 @@ export interface Pessoa {
     idade: number;
 }
 
-export type CriarPessoaDto = Omit<Pessoa, "id">;
+export type PessoaDto = Omit<Pessoa, "id">;

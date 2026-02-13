@@ -1,8 +1,12 @@
 import api from "./api";
-import type { CriarPessoaDto, Pessoa } from "../modelos/Pessoa";
+import type { PessoaDto, Pessoa } from "../modelos/Pessoa";
 
-export async function criarPessoa(dados: CriarPessoaDto): Promise<void> {
-    await api.post("/api/pessoa", dados);
+export async function criarPessoa(dados: PessoaDto): Promise<Pessoa> {
+    return (await api.post("/api/pessoa", dados)).data;
+}
+
+export async function atualizarPessoa(id: string, dados: PessoaDto): Promise<Pessoa> {
+    return (await api.put(`/api/pessoa/${id}`, dados)).data;
 }
 
 export async function obterPessoas(): Promise<Pessoa[]> {

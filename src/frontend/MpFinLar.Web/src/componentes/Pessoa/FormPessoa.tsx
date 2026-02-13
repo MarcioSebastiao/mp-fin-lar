@@ -1,28 +1,33 @@
 import { useState } from "react";
 import { criarPessoa } from "../../servicos/pessoasServico";
-import type { CriarPessoaDto } from "../../modelos/Pessoa";
+import type { Pessoa, PessoaDto } from "../../modelos/Pessoa";
 import { extrairMensagensErro } from "../../servicos/api";
 import type { ErroAPI } from "../../modelos/ErrosApi";
 import { useForm } from "react-hook-form";
 
-interface CriarPessoaProps {
-    sucessoAoCriar: () => void;
+interface FormPessoaProps {
+    pessoaInicial?: PessoaDto;
+    titulo: string;
+    textoBotao: string;
+    onSubmit: (pessoa: PessoaDto) => Promise<Pessoa>;
+    aoSucesso: (pessoa: Pessoa) => void;
 }
 
-function CriarPessoa({ sucessoAoCriar }: CriarPessoaProps) {
+function FormPessoa({ pessoaInicial, titulo, textoBotao, onSubmit, aoSucesso }: FormPessoaProps) {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<CriarPessoaDto>();
+    } = useForm<PessoaDto>({
+        defaultValues: pessoaInicial,
+    });
 
     const [mensagensErroApi, setErro] = useState<string[]>();
 
-    async function cadrastrarPessoa(data: CriarPessoaDto) {
+    async function enviar(data: PessoaDto) {
         try {
-            await criarPessoa(data);
-            alert("Pessoa cadastrada com sucesso!");
-            sucessoAoCriar();
+            const novaPessoa = await onSubmit(data);
+            aoSucesso(novaPessoa);
         } catch (erro) {
             if ((erro as ErroAPI).status == 500) {
                 alert("Erro inesperado. Por favor atualize e tente novamente!");
@@ -34,8 +39,8 @@ function CriarPessoa({ sucessoAoCriar }: CriarPessoaProps) {
 
     return (
         <div>
-            <h2>Nova Pessoa</h2>
-            <form onSubmit={handleSubmit(cadrastrarPessoa)}>
+            <h2>{titulo}</h2>
+            <form onSubmit={handleSubmit(enviar)}>
                 <div className="item-formulario">
                     <label>Nome:</label>
                     <input
@@ -56,7 +61,7 @@ function CriarPessoa({ sucessoAoCriar }: CriarPessoaProps) {
                         })}
                     />
                 </div>
-                <button type="submit">Cadastrar</button>
+                <button type="submit">{textoBotao}</button>
             </form>
 
             <div className="mensagens-erro">
@@ -70,4 +75,4 @@ function CriarPessoa({ sucessoAoCriar }: CriarPessoaProps) {
     );
 }
 
-export default CriarPessoa;
+export default FormPessoa;
