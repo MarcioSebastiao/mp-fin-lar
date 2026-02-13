@@ -13,6 +13,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  max-width: 960px;
+  width: 100%;
+  padding: 2rem;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,12 +35,6 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
 h1 {
   font-size: 3.2em;
@@ -73,12 +79,17 @@ input {
 
 .item-formulario input {
   padding: 10px;
-  min-width: 400px;
+  min-width: 300px;
+  width: calc(100% - 20px);
   border-radius: 8px;
   box-shadow: none;
 }
 
-.mensagens-erro span{
+.mensagens-erro {
+  width: 100%;
+}
+
+.mensagens-erro span {
   display: block;
 }
 

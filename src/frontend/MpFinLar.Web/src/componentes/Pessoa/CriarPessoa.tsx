@@ -33,7 +33,7 @@ function CriarPessoa({ sucessoAoCriar }: CriarPessoaProps) {
     }
 
     return (
-        <>
+        <div>
             <h2>Nova Pessoa</h2>
             <form onSubmit={handleSubmit(cadrastrarPessoa)}>
                 <div className="item-formulario">
@@ -66,7 +66,7 @@ function CriarPessoa({ sucessoAoCriar }: CriarPessoaProps) {
                     <span>{item}</span>
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 
