@@ -22,6 +22,11 @@ td {
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+td:last-of-type{
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+}
 
 th {
 }

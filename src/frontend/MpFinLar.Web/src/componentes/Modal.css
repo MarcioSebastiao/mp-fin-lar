@@ -1,4 +1,4 @@
-.modal{
+.modal {
   position: absolute;
   top: 0;
   left: 0;
@@ -17,12 +17,16 @@
   min-width: 400px;
 }
 
+.modal-conteudo > div:first-of-type {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
 .modal-fechar {
-  position: absolute;
-  top: 8px;
-  right: 8px;
   background: transparent;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
+  padding: 0;
 }

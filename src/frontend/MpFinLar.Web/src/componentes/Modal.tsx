@@ -13,9 +13,11 @@ function Modal({ aberto, aoFechar, children }: ModalProps) {
     return (
         <div className="modal" onClick={aoFechar}>
             <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
-                <button className="modal-fechar" onClick={aoFechar}>
-                    x
-                </button>
+                <div>
+                    <button className="modal-fechar" onClick={aoFechar}>
+                        x
+                    </button>
+                </div>
                 {children}
             </div>
         </div>
