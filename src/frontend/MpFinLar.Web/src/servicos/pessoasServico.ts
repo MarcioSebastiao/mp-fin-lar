@@ -9,3 +9,7 @@ export async function obterPessoas(): Promise<Pessoa[]> {
     const response = await api.get("/api/pessoa");
     return response.data as Pessoa[];
 }
+
+export async function removerPessoa(id: string): Promise<void> {
+    await api.delete(`/api/pessoa/${id}`);
+}

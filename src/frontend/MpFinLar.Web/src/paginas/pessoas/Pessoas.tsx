@@ -2,7 +2,7 @@ import CriarPessoa from "../../componentes/Pessoa/CriarPessoa";
 import Modal from "../../componentes/Modal";
 import { useEffect, useState } from "react";
 import "./Pessoas.css";
-import { obterPessoas } from "../../servicos/pessoasServico";
+import { obterPessoas, removerPessoa as removePessoaService } from "../../servicos/pessoasServico";
 import type { Pessoa } from "../../modelos/Pessoa";
 
 function Pessoas() {
@@ -18,6 +18,13 @@ function Pessoas() {
         }
         carregarPessoas();
     }, []);
+
+    async function removerPessoa(id: string) {
+        try {
+            await removePessoaService(id);
+            setPessoas((pe) => pe.filter((p) => p.id !== id));
+        } catch (erro) {}
+    }
 
     return (
         <>
@@ -40,12 +47,14 @@ function Pessoas() {
                         </thead>
                         <tbody>
                             {pessoas.map((pessoa) => (
-                                <tr>
+                                <tr key={pessoa.id}>
                                     <td>{pessoa.nome}</td>
                                     <td>{pessoa.idade}</td>
                                     <td>
                                         <button className="editar">Editar</button>
-                                        <button className="excluir">Excluir</button>
+                                        <button className="excluir" onClick={() => removerPessoa(pessoa.id)}>
+                                            Excluir
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
