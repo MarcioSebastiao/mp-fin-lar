@@ -12,31 +12,31 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
         _repositorio = repositorio;
     }
 
-    public async Task<ResultadoAplicacao> CriarAsync(PessoaDTO dto)
+    public async Task<(Pessoa?, ResultadoAplicacao)> CriarAsync(PessoaDTO dto)
     {
         var pessoa = new Pessoa(dto.Nome, dto.Idade);
 
         if (!pessoa.EhValido)
-            return new(pessoa.Notificacoes);
+            return new(null, new(pessoa.Notificacoes));
 
         await _repositorio.AdicionarAsync(pessoa);
 
-        return new(Array.Empty<string>());
+        return new(pessoa, new(Array.Empty<string>()));
     }
 
-    public async Task<ResultadoAplicacao> AtualizarAsync(Guid id, PessoaDTO dto)
+    public async Task<(Pessoa?, ResultadoAplicacao)> AtualizarAsync(Guid id, PessoaDTO dto)
     {
         var pessoa = await _repositorio.ObterPorIdAsync(id);
         if (pessoa is null)
-            return new(["Pessoa não encontrada."]);
-        
+            return new(null, new(["Pessoa não encontrada."]));
+
         pessoa.Atualizar(dto.Nome, dto.Idade);
 
         var sucesso = await _repositorio.AtualizarAsync(pessoa);
         if (!sucesso)
-            return new(pessoa.Notificacoes);
+            return new(null, new(pessoa.Notificacoes));
 
-        return new(Array.Empty<string>());
+        return new(pessoa, new(Array.Empty<string>()));
     }
 
     public async Task<ResultadoAplicacao> RemoverAsync(Guid id)

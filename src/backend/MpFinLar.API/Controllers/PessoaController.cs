@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using MpFinLar.API.Aplicacao;
 using MpFinLar.API.Aplicacao.Pessoas;
+using MpFinLar.API.Dominio.Entidades;
 
 namespace MpFinLar.API.Controllers;
 
@@ -15,20 +17,21 @@ public sealed class PessoaController : MainController
     [HttpPost]
     public async Task<ActionResult> Criar(PessoaDTO pessoaDTO)
     {
-        var resultado = await _aplicacao.CriarAsync(pessoaDTO);
-        if (resultado.Sucesso)
-            return Ok();
+        (Pessoa? pessoa, ResultadoAplicacao resultado) = await _aplicacao.CriarAsync(pessoaDTO);
 
-        return RespostaDeErro(resultado.Notificacoes);
+        if (!resultado.Sucesso)
+            return RespostaDeErro(resultado.Notificacoes);
+
+        return Ok(new PessoaRespostaDTO { Id = pessoa!.Id, Nome = pessoa.Nome, Idade = pessoa.Idade });
     }
 
     [HttpPut("{id:guid}")]
     public async Task<ActionResult> Atualizar(Guid id, PessoaDTO pessoaDTO)
     {
-        var resultado = await _aplicacao.AtualizarAsync(id, pessoaDTO);
+        (Pessoa? pessoa, ResultadoAplicacao resultado) = await _aplicacao.AtualizarAsync(id, pessoaDTO);
         if (resultado.Sucesso)
-            return Ok();
-        
+            return Ok(new PessoaRespostaDTO { Id = pessoa!.Id, Nome = pessoa.Nome, Idade = pessoa.Idade });
+
         return RespostaDeErro(resultado.Notificacoes);
     }
 
