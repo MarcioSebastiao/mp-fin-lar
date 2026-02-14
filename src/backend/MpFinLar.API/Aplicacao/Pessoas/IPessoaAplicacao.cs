@@ -4,8 +4,8 @@ namespace MpFinLar.API.Aplicacao.Pessoas;
 
 public interface IPessoaAplicacao
 {
-    Task<(Pessoa?, ResultadoAplicacao)> CriarAsync(PessoaDTO dto);
-    Task<(Pessoa?, ResultadoAplicacao)> AtualizarAsync(Guid Id, PessoaDTO dto);
+    Task<(PessoaRespostaDTO?, ResultadoAplicacao)> CriarAsync(PessoaDTO dto);
+    Task<(PessoaRespostaDTO?, ResultadoAplicacao)> AtualizarAsync(Guid Id, PessoaDTO dto);
     Task<ResultadoAplicacao> RemoverAsync(Guid id);
     Task<IEnumerable<PessoaRespostaDTO>> ObterAsync();
 }

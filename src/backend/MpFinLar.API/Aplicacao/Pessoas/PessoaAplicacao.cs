@@ -12,7 +12,7 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
         _repositorio = repositorio;
     }
 
-    public async Task<(Pessoa?, ResultadoAplicacao)> CriarAsync(PessoaDTO dto)
+    public async Task<(PessoaRespostaDTO?, ResultadoAplicacao)> CriarAsync(PessoaDTO dto)
     {
         var pessoa = new Pessoa(dto.Nome, dto.Idade);
 
@@ -21,10 +21,10 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
 
         await _repositorio.AdicionarAsync(pessoa);
 
-        return new(pessoa, new(Array.Empty<string>()));
+        return new(MapearParaResposta(pessoa), new(Array.Empty<string>()));
     }
 
-    public async Task<(Pessoa?, ResultadoAplicacao)> AtualizarAsync(Guid id, PessoaDTO dto)
+    public async Task<(PessoaRespostaDTO?, ResultadoAplicacao)> AtualizarAsync(Guid id, PessoaDTO dto)
     {
         var pessoa = await _repositorio.ObterPorIdAsync(id);
         if (pessoa is null)
@@ -36,7 +36,7 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
         if (!sucesso)
             return new(null, new(pessoa.Notificacoes));
 
-        return new(pessoa, new(Array.Empty<string>()));
+        return new(MapearParaResposta(pessoa), new(Array.Empty<string>()));
     }
 
     public async Task<ResultadoAplicacao> RemoverAsync(Guid id)
@@ -49,4 +49,12 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
     }
 
     public Task<IEnumerable<PessoaRespostaDTO>> ObterAsync() => _repositorio.ObterPessoasAsync();
+
+    private PessoaRespostaDTO? MapearParaResposta(Pessoa pessoa) => new()
+    {
+        Id = pessoa.Id,
+        Nome = pessoa.Nome,
+        Idade = pessoa.Idade
+    };
+
 }
