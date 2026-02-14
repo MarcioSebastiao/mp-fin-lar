@@ -45,7 +45,7 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
         Id = transacao.Id,
         Descricao = transacao.Descricao,
         Valor = transacao.Valor,
-        Tipo = transacao.Tipo,
+        Tipo = transacao.Tipo.ToString(),
         Categoria = new CategoriaRespostaDTO
         {
             Id = categoria.Id,

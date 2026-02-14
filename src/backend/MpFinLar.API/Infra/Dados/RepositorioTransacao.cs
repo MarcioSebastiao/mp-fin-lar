@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Transacoes;
 using MpFinLar.API.Dominio.Entidades;
 using MpFinLar.API.Dominio.Interfaces;
@@ -40,7 +41,7 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
             Id = transacao.Id,
             Descricao = transacao.Descricao,
             Valor = transacao.Valor,
-            Tipo = transacao.Tipo
+            Tipo = transacao.Tipo.ToString(),
         };
     }
 }
