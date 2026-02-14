@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Pessoas;
+using MpFinLar.API.Aplicacao.Transacoes;
 using MpFinLar.API.Configuracoes;
 using MpFinLar.API.Dominio.Interfaces;
 using MpFinLar.API.Infra.Dados;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<Contexto>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPessoaAplicacao, PessoaAplicacao>();
+builder.Services.AddScoped<ITransacaoAplicacao, TransacaoAplicacao>();
 builder.Services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
 
 builder.Services.AddScoped<IRepositorioPessoa, RepositorioPessoa>();

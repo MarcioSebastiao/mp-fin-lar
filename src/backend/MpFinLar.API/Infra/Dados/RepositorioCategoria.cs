@@ -44,4 +44,9 @@ public sealed class RepositorioCategoria : IRepositorioCategoria
             Finalidade = categoria.Finalidade.ToString()
         };
     }
+
+    public Task<Categoria?> ObterPorIdAsync(Guid id)
+    {
+        return _contexto.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+    }
 }

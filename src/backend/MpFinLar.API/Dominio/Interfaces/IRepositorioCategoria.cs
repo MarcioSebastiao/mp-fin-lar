@@ -7,4 +7,5 @@ public interface IRepositorioCategoria
 {
     Task AdicionarAsync(Categoria categoria);
     Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync();
+    Task<Categoria?> ObterPorIdAsync(Guid id);
 }
