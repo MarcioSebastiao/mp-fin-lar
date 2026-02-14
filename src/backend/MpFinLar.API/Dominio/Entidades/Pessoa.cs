@@ -5,6 +5,11 @@ public sealed class Pessoa : Entidade
     public string Nome { get; private set; } = string.Empty;
     public int Idade { get; private set; }
 
+    public ICollection<Transacao> Transacoes { get; set; } = new List<Transacao>();
+
+    // Construtor privado para uso do Entity Framework Core
+    private Pessoa() { }
+
     /// <summary>
     /// Cria uma nova instância de Pessoa aplicando as regras de negócio
     /// </summary>

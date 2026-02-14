@@ -13,7 +13,16 @@ public sealed class Contexto : DbContext
     /// Conjunto de entidades Pessoa que será mapeado para a tabela correspondente no banco de dados.
     /// </summary>
     public DbSet<Pessoa> Pessoas { get; set; }
+
+    /// <summary>
+    /// Conjunto de entidades Categoria que será mapeado para a tabela correspondente no banco de dados.
+    /// </summary>
     public DbSet<Categoria> Categorias { get; set; }
+
+    /// <summary>
+    /// Conjunto de entidades Transacao que será mapeado para a tabela correspondente no banco de dados.
+    /// </summary>
+    public DbSet<Transacao> Transacoes { get; set; }
 
     public Contexto(DbContextOptions<Contexto> options) : base(options)
     {
