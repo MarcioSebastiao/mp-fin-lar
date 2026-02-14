@@ -1,0 +1,45 @@
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using MpFinLar.API.Aplicacao.Transacoes;
+using MpFinLar.API.Dominio.Entidades;
+using MpFinLar.API.Dominio.Interfaces;
+
+namespace MpFinLar.API.Infra.Dados;
+
+public sealed class RepositorioTransacao : IRepositorioTransacao
+{
+    private readonly Contexto _contexto;
+
+    public RepositorioTransacao(Contexto contexto)
+    {
+        _contexto = contexto;
+    }
+
+    public async Task AdicionarAsync(Transacao transacao)
+    {
+        if (!transacao.EhValido)
+            return;
+
+        _contexto.Transacoes.Add(transacao);
+        await _contexto.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesAsync()
+    {
+        return await _contexto.Transacoes.Select(Mapear()).ToListAsync();
+    }
+
+    /// <summary>
+    /// Expressão Linq para mapear de entidade Transacao para a DTO
+    /// </summary>
+    /// <returns></returns>
+    private static Expression<Func<Transacao, TransacaoRespostaDTO>> Mapear()
+    {
+        return transacao => new TransacaoRespostaDTO
+        {
+            Id = transacao.Id,
+            Valor = transacao.Valor,
+            Tipo = transacao.Tipo
+        };
+    }
+}

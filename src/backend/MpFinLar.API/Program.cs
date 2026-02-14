@@ -18,9 +18,11 @@ builder.Services.AddDbContext<Contexto>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPessoaAplicacao, PessoaAplicacao>();
+builder.Services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
+
 builder.Services.AddScoped<IRepositorioPessoa, RepositorioPessoa>();
 builder.Services.AddScoped<ICategoriaAplicacao, CategoriaAplicacao>();
-builder.Services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
+builder.Services.AddScoped<IRepositorioTransacao, RepositorioTransacao>();
 
 var app = builder.Build();
 
