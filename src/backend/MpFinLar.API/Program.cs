@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Pessoas;
 using MpFinLar.API.Configuracoes;
 using MpFinLar.API.Dominio.Interfaces;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<Contexto>(options =>
 
 builder.Services.AddScoped<IPessoaAplicacao, PessoaAplicacao>();
 builder.Services.AddScoped<IRepositorioPessoa, RepositorioPessoa>();
+builder.Services.AddScoped<ICategoriaAplicacao, CategoriaAplicacao>();
 builder.Services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
 
 var app = builder.Build();
