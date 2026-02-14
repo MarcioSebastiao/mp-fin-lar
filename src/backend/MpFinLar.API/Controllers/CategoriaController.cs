@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using MpFinLar.API.Aplicacao;
 using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Pessoas;
-using MpFinLar.API.Dominio.Entidades;
 
 namespace MpFinLar.API.Controllers;
 
@@ -17,12 +16,12 @@ public sealed class CategoriaController : MainController
     [HttpPost]
     public async Task<ActionResult> Criar(CategoriaDto categoriaDto)
     {
-        (Categoria? categoria, ResultadoAplicacao resultado) = await _aplicacao.CriarAsync(categoriaDto);
+        (CategoriaRespostaDTO? categoria, ResultadoAplicacao resultado) = await _aplicacao.CriarAsync(categoriaDto);
 
-        if (!resultado.Sucesso)
-            return RespostaDeErro(resultado.Notificacoes);
+        if (resultado.Sucesso)
+            return Ok(categoria);
 
-        return Ok(new CategoriaRespostaDTO { Id = categoria!.Id, Descricao = categoria.Descricao, Finalidade = categoria.Finalidade.ToString() });
+        return RespostaDeErro(resultado.Notificacoes);
     }
 
 

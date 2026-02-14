@@ -12,7 +12,7 @@ public sealed class CategoriaAplicacao : ICategoriaAplicacao
         _repositorio = repositorio;
     }
 
-    public async Task<(Categoria?, ResultadoAplicacao)> CriarAsync(CategoriaDto dto)
+    public async Task<(CategoriaRespostaDTO?, ResultadoAplicacao)> CriarAsync(CategoriaDto dto)
     {
         var categoria = new Categoria(dto.Descricao, dto.Finalidade);
 
@@ -21,8 +21,15 @@ public sealed class CategoriaAplicacao : ICategoriaAplicacao
 
         await _repositorio.AdicionarAsync(categoria);
 
-        return new(categoria, new(Array.Empty<string>()));
+        return new(MapearParaResposta(categoria), new(Array.Empty<string>()));
     }
 
     public Task<IEnumerable<CategoriaRespostaDTO>> ObterAsync() => _repositorio.ObterCategoriasAsync();
+
+    private CategoriaRespostaDTO? MapearParaResposta(Categoria categoria) => new()
+    {
+        Id = categoria!.Id,
+        Descricao = categoria.Descricao,
+        Finalidade = categoria.Finalidade.ToString()
+    };
 }
