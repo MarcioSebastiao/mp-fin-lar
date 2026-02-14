@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { criarPessoa } from "../../servicos/pessoasServico";
 import type { Pessoa, PessoaDto } from "../../modelos/Pessoa";
 import { extrairMensagensErro } from "../../servicos/api";
 import type { ErroAPI } from "../../modelos/ErrosApi";
