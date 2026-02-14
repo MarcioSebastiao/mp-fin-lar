@@ -10,6 +10,6 @@ public sealed class TransacaoRespostaDTO
     public string Descricao { get; set; } = string.Empty;
     public decimal Valor { get; set; }
     public TipoTrasacao Tipo { get; set; }
-    public CategoriaRespostaDTO Categoria { get; set; } = null!;
-    public PessoaRespostaDTO Pessoa { get; set; } = null!;
+    public CategoriaRespostaDTO? Categoria { get; set; } 
+    public PessoaRespostaDTO? Pessoa { get; set; } 
 }
