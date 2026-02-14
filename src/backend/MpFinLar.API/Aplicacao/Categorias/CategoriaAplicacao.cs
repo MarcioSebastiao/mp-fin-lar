@@ -1,5 +1,4 @@
 using MpFinLar.API.Dominio.Entidades;
-using MpFinLar.API.Dominio.Enums;
 using MpFinLar.API.Dominio.Interfaces;
 
 namespace MpFinLar.API.Aplicacao.Categorias;
@@ -15,7 +14,7 @@ public sealed class CategoriaAplicacao : ICategoriaAplicacao
 
     public async Task<(Categoria?, ResultadoAplicacao)> CriarAsync(CategoriaDto dto)
     {
-        var categoria = new Categoria(dto.Descricao, (FinalidadeCategoria)dto.Finalidade);
+        var categoria = new Categoria(dto.Descricao, dto.Finalidade);
 
         if (!categoria.EhValido)
             return new(null, new(categoria.Notificacoes));
