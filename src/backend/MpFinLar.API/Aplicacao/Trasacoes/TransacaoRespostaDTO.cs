@@ -7,6 +7,7 @@ namespace MpFinLar.API.Aplicacao.Transacoes;
 public sealed class TransacaoRespostaDTO
 {
     public Guid Id { get; set; }
+    public string Descricao { get; set; } = string.Empty;
     public decimal Valor { get; set; }
     public TipoTrasacao Tipo { get; set; }
     public CategoriaRespostaDTO Categoria { get; set; } = null!;

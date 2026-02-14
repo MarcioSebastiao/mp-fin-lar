@@ -43,6 +43,7 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
     private static TransacaoRespostaDTO MapearParaResposta(Transacao transacao, Categoria categoria, Pessoa pessoa) => new()
     {
         Id = transacao.Id,
+        Descricao = transacao.Descricao,
         Valor = transacao.Valor,
         Tipo = transacao.Tipo,
         Categoria = new CategoriaRespostaDTO
