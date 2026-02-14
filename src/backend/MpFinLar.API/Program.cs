@@ -18,6 +18,7 @@ builder.Services.AddDbContext<Contexto>(options =>
 
 builder.Services.AddScoped<IPessoaAplicacao, PessoaAplicacao>();
 builder.Services.AddScoped<IRepositorioPessoa, RepositorioPessoa>();
+builder.Services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
 
 var app = builder.Build();
 
