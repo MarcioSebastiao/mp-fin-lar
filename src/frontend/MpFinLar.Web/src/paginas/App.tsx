@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 function App() {
     return (
         <>
-            <div>
+            <div className="app">
                 <Link to="/Pessoas">Pessoas</Link>
+                <Link to="/Categorias">Categorias</Link>
             </div>
         </>
     );

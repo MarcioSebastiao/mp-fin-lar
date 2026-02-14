@@ -1,0 +1,19 @@
+.lista-categoria {
+    padding: 20px;
+}
+
+.lista-categoria table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+.lista-categoria td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.lista-categoria td:last-of-type {
+    display: flex;
+    justify-content: start;
+}
