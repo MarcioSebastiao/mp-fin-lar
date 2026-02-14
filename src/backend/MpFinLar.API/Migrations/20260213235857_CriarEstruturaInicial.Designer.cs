@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MpFinLar.API.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20260210231347_CriarEstruturaInicial")]
+    [Migration("20260213235857_CriarEstruturaInicial")]
     partial class CriarEstruturaInicial
     {
         /// <inheritdoc />
@@ -36,7 +36,8 @@ namespace MpFinLar.API.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 

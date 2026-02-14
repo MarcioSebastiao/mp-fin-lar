@@ -18,4 +18,9 @@ public sealed class Contexto : DbContext
     {
 
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(Contexto).Assembly);
+    }
 }

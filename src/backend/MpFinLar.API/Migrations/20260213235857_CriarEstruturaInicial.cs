@@ -16,7 +16,7 @@ namespace MpFinLar.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nome = table.Column<string>(type: "text", nullable: false),
+                    Nome = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Idade = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
