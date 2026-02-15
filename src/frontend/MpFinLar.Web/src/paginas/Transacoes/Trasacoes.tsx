@@ -63,22 +63,20 @@ function Transacoes() {
 
     return (
         <>
-            <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)}>
-                <FormTransacao
-                    aoSucesso={async (novaTransacao) => {
-                        setTransacoes((dados) => [novaTransacao, ...dados]);
-                        atualizarValores(novaTransacao);
-                        setModalAberto(false);
-                    }}
-                />
-            </Modal>
             <div>
                 <h2>{location.state?.nomePessoa} - Transações:</h2>
 
                 <div className="container transacao">
-                    <div>
-                        <button onClick={() => setModalAberto(true)}>Nova Transação</button>
-                    </div>
+
+                    <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)} tituloBotaoAbrir="Nova Transação">
+                        <FormTransacao
+                            aoSucesso={async (novaTransacao) => {
+                                setTransacoes((dados) => [novaTransacao, ...dados]);
+                                atualizarValores(novaTransacao);
+                                setModalAberto(false);
+                            }}
+                        />
+                    </Modal>
 
                     <div className="valores">
                         <p>

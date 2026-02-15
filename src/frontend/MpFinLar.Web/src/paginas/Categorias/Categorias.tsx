@@ -36,7 +36,7 @@ function Categorias() {
 
     return (
         <>
-            <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)}>
+            <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false) } tituloBotaoAbrir="Nova Categoria">
                 <FormCategoria
                     aoSucesso={ async (novaCategoria) => {
                         setCategoria((dados) => [novaCategoria, ...dados]);
@@ -45,10 +45,6 @@ function Categorias() {
                 />
             </Modal>
             <div className="container">
-                <div>
-                    <button onClick={() => setModalAberto(true)}>Nova Categoria</button>
-                </div>
-
                 <div className="lista-categoria">
                     <table>
                         <thead>

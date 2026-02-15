@@ -30,3 +30,9 @@
   cursor: pointer;
   padding: 0;
 }
+
+.botao-abrir-modal {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
