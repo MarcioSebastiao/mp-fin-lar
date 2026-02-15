@@ -26,9 +26,13 @@ public sealed class RepositorioCategoria : IRepositorioCategoria
 
     }
 
-    public async Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync()
+    public async Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync( int pularItens, int quantidadeItens)
     {
-        return await _contexto.Categorias.Select(Mapear()).ToListAsync();
+        return await _contexto.Categorias
+        .AsNoTracking()
+        .Skip(pularItens)
+        .Take(quantidadeItens)
+        .Select(Mapear()).ToListAsync();
     }
 
     /// <summary>
@@ -44,6 +48,8 @@ public sealed class RepositorioCategoria : IRepositorioCategoria
             Finalidade = categoria.Finalidade.ToString()
         };
     }
+
+    public Task<int> ObterTotalDeItensAsync() => _contexto.Categorias.CountAsync();
 
     public Task<Categoria?> ObterPorIdAsync(Guid id)
     {

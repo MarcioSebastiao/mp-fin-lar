@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MpFinLar.API.Aplicacao;
 using MpFinLar.API.Aplicacao.Categorias;
-using MpFinLar.API.Aplicacao.Pessoas;
 
 namespace MpFinLar.API.Controllers;
 
@@ -27,10 +26,10 @@ public sealed class CategoriaController : MainController
 
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PessoaRespostaDTO>>> Obter()
+    public async Task<ActionResult<CategoriasRespostaDTO>> Obter(int pularItens, int quantidadeItens)
     {
-        var pessoas = await _aplicacao.ObterAsync();
-        return Ok(pessoas);
+        var categorias = await _aplicacao.ObterAsync(pularItens, quantidadeItens);
+        return Ok(categorias);
     }
 
 }

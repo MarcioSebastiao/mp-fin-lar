@@ -1,4 +1,3 @@
-using MpFinLar.API.Dominio.Enums;
 
 namespace MpFinLar.API.Aplicacao.Categorias;
 

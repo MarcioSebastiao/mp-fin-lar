@@ -24,7 +24,20 @@ public sealed class CategoriaAplicacao : ICategoriaAplicacao
         return new(MapearParaResposta(categoria), new(Array.Empty<string>()));
     }
 
-    public Task<IEnumerable<CategoriaRespostaDTO>> ObterAsync() => _repositorio.ObterCategoriasAsync();
+    public async Task<CategoriasRespostaDTO> ObterAsync(int pularItens = 0, int quantidadeItens = 100)
+    {
+        if (quantidadeItens <= 0 || quantidadeItens > 100)
+            quantidadeItens = 100;
+
+        var categorias = await _repositorio.ObterCategoriasAsync(pularItens, quantidadeItens);
+        var totalItens = await _repositorio.ObterTotalDeItensAsync();
+
+        return new CategoriasRespostaDTO
+        {
+            Categorias = categorias,
+            TotalDeItens = totalItens
+        };
+    }
 
     private CategoriaRespostaDTO? MapearParaResposta(Categoria categoria) => new()
     {

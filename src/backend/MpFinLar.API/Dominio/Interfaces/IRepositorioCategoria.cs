@@ -6,6 +6,7 @@ namespace MpFinLar.API.Dominio.Interfaces;
 public interface IRepositorioCategoria
 {
     Task AdicionarAsync(Categoria categoria);
-    Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync();
+    Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync(int pularItens, int quantidadeItens);
+    Task<int> ObterTotalDeItensAsync();
     Task<Categoria?> ObterPorIdAsync(Guid id);
 }
