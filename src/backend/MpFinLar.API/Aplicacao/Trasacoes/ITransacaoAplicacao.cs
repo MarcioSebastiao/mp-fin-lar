@@ -19,5 +19,5 @@ public interface ITransacaoAplicacao
     /// <returns>
     /// Coleção de transações da pessoa no formato de resposta.
     /// </returns>
-    Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens = 0, int quantidadeItens = 100);
+    Task<TransacoesRespostaDTO> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens = 0, int quantidadeItens = 100);
 }

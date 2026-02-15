@@ -24,7 +24,7 @@ public sealed class TransacaoController : MainController
     }
 
     [HttpGet("{pessoaId:guid}")]
-    public async Task<ActionResult<IEnumerable<TransacaoRespostaDTO>>> Obter(Guid pessoaId, int pularItens, int quantidadeItens)
+    public async Task<ActionResult<TransacoesRespostaDTO>> Obter(Guid pessoaId, int pularItens, int quantidadeItens)
     {
         return Ok(await _aplicacao.ObterTransacoesDePessoaAsync(pessoaId, pularItens, quantidadeItens));
     }

@@ -1,5 +1,6 @@
 using MpFinLar.API.Aplicacao.Transacoes;
 using MpFinLar.API.Dominio.Entidades;
+using MpFinLar.API.Dominio.Modelos;
 
 namespace MpFinLar.API.Dominio.Interfaces;
 
@@ -23,4 +24,5 @@ public interface IRepositorioTransacao
     /// Coleção de transações da pessoa no formato de resposta.
     /// </returns>
     Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens, int quantidadeItens);
+    Task<ValoresTransacoes> ObterValoresDePessoaAsync(Guid pessoaId);
 }

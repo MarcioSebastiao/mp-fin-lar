@@ -38,11 +38,26 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
         return new(MapearParaResposta(transacao, categoria, pessoa), new(Array.Empty<string>()));
     }
 
-    public Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens = 0, int quantidadeItens = 100)
+    public async Task<TransacoesRespostaDTO> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens = 0, int quantidadeItens = 100)
     {
-        if(quantidadeItens <= 0 || quantidadeItens > 100)
+        if (quantidadeItens <= 0 || quantidadeItens > 100)
             quantidadeItens = 100;
-        return _repositorio.ObterTransacoesDePessoaAsync(pessoaId, pularItens, quantidadeItens);
+
+        var listaTransacoes = await _repositorio.ObterTransacoesDePessoaAsync(pessoaId, pularItens, quantidadeItens);
+        var valores = await _repositorio.ObterValoresDePessoaAsync(pessoaId);
+
+        var transacoes = new TransacoesRespostaDTO
+        {
+            Transacoes = listaTransacoes,
+            Valores = new()
+            {
+                TotalEmDespesas = valores.TotalEmDespesas,
+                TotalEmReceitas = valores.TotalEmReceitas,
+                Saldo = valores.Saldo
+            }
+        };
+
+        return transacoes;
     }
 
     private static TransacaoRespostaDTO MapearParaResposta(Transacao transacao, Categoria categoria, Pessoa pessoa) => new()
@@ -56,7 +71,7 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
             Id = categoria.Id,
             Descricao = categoria.Descricao,
             Finalidade = categoria.Finalidade.ToString()
-    
+
         },
         Pessoa = new PessoaRespostaDTO
         {

@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Transacoes;
 using MpFinLar.API.Dominio.Entidades;
+using MpFinLar.API.Dominio.Enums;
 using MpFinLar.API.Dominio.Interfaces;
+using MpFinLar.API.Dominio.Modelos;
 
 namespace MpFinLar.API.Infra.Dados;
 
@@ -33,6 +35,24 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
         .Skip(pularItens)
         .Take(quantidadeItens)
         .Select(Mapear()).ToListAsync();
+    }
+
+    public async Task<ValoresTransacoes> ObterValoresDePessoaAsync(Guid pessoaId)
+    {
+        var valores = await _contexto.Transacoes
+        .AsNoTracking()
+        .Where(t => t.PessoaId == pessoaId)
+        .GroupBy(t => t.Tipo)
+        .Select(g => new
+        {
+            Tipo = g.Key,
+            Total = g.Sum(t => t.Valor)
+        }).ToListAsync();
+
+        return new ValoresTransacoes(
+            totalEmDespesas: valores.FirstOrDefault(v => v.Tipo == TipoTrasacao.Despesa)?.Total ?? 0,
+            totalEmReceitas: valores.FirstOrDefault(v => v.Tipo == TipoTrasacao.Receita)?.Total ?? 0
+        );
     }
 
     /// <summary>
