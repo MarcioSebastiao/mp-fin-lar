@@ -4,6 +4,7 @@ import "./Pessoas.css";
 import { atualizarPessoa, criarPessoa, obterPessoas, removerPessoa as removePessoaService } from "../../servicos/pessoasServico";
 import type { Pessoa, PessoaDto } from "../../modelos/Pessoa";
 import FormPessoa from "../../componentes/Pessoa/FormPessoa";
+import { Link } from "react-router-dom";
 
 function Pessoas() {
     const [modalAberto, setModalAberto] = useState(false);
@@ -78,6 +79,9 @@ function Pessoas() {
                                     <td>{pessoa.nome}</td>
                                     <td>{pessoa.idade}</td>
                                     <td>
+                                        <Link to={`${pessoa.id}/transacoes`} state={{ nomePessoa: pessoa.nome }}>
+                                            Transações
+                                        </Link>
                                         <button className="editar" onClick={() => abrirEdicao(pessoa)}>
                                             Editar
                                         </button>

@@ -1,0 +1,15 @@
+.lista-transacaotable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+.lista-transacao td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.lista-transacao td:last-of-type {
+    display: flex;
+    justify-content: start;
+}
