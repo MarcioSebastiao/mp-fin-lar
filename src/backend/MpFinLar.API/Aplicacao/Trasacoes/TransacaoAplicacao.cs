@@ -45,6 +45,7 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
 
         var listaTransacoes = await _repositorio.ObterTransacoesDePessoaAsync(pessoaId, pularItens, quantidadeItens);
         var valores = await _repositorio.ObterValoresDePessoaAsync(pessoaId);
+        var totalDeItens = await _repositorio.ObterTotalDeTransacoesDePessoaAsync(pessoaId);
 
         var transacoes = new TransacoesRespostaDTO
         {
@@ -54,7 +55,8 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
                 TotalEmDespesas = valores.TotalEmDespesas,
                 TotalEmReceitas = valores.TotalEmReceitas,
                 Saldo = valores.Saldo
-            }
+            },
+            TotalDeItens = totalDeItens
         };
 
         return transacoes;

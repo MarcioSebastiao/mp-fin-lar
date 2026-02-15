@@ -24,5 +24,6 @@ public interface IRepositorioTransacao
     /// Coleção de transações da pessoa no formato de resposta.
     /// </returns>
     Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens, int quantidadeItens);
+    Task<int> ObterTotalDeTransacoesDePessoaAsync(Guid pessoaId);
     Task<ValoresTransacoes> ObterValoresDePessoaAsync(Guid pessoaId);
 }

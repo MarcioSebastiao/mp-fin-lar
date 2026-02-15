@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Transacoes;
 using MpFinLar.API.Dominio.Entidades;
 using MpFinLar.API.Dominio.Enums;
@@ -53,6 +52,14 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
             totalEmDespesas: valores.FirstOrDefault(v => v.Tipo == TipoTrasacao.Despesa)?.Total ?? 0,
             totalEmReceitas: valores.FirstOrDefault(v => v.Tipo == TipoTrasacao.Receita)?.Total ?? 0
         );
+    }
+
+    public Task<int> ObterTotalDeTransacoesDePessoaAsync(Guid pessoaId)
+    {
+        return _contexto.Transacoes
+        .AsNoTracking()
+        .Where(t => t.PessoaId == pessoaId)
+        .CountAsync();
     }
 
     /// <summary>
