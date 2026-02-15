@@ -46,7 +46,7 @@ function FormCategoria({ aoSucesso }: FormCategoriaProps) {
                         type="text"
                         {...register("descricao", {
                             required: "Informe uma descrição para a categoria",
-                            maxLength: { value: 200, message: "A descrição deve ter no máximo 200 caracteres." },
+                            maxLength: { value: 400, message: "A descrição deve ter no máximo 400 caracteres." },
                         })}
                     />
                 </div>
