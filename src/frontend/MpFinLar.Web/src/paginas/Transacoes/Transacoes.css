@@ -9,6 +9,15 @@
     font-weight: normal;
 
 }
+.lista-transacao {
+    flex-wrap: wrap;
+}
+.lista-transacao div {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
 
 .lista-transacao table {
     width: 100%;

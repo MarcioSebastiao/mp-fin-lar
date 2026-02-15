@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import type { TransacaoResposta, TrasacoesResposta, ValoresTransacao } from "../../modelos/Transacao";
+import type { TransacaoResposta, ValoresTransacao } from "../../modelos/Transacao";
 import { obterTransacoesDePessoa } from "../../servicos/transacoesServico";
 import "./Transacoes.css";
 import Modal from "../../componentes/Modal";
@@ -18,16 +18,32 @@ function Transacoes() {
         saldo: 0,
     });
 
+    const [totalDeItens, setTotalDeItens] = useState(0);
+    const [totalDeItensCarregados, setTotalDeItensCarregados] = useState(0);
+
     useEffect(() => {
         async function carregarTransacoes() {
             try {
-                const resposta = await obterTransacoesDePessoa(pessoaId!, 0, 100);
+                const resposta = await obterTransacoesDePessoa(pessoaId!);
                 setTransacoes(resposta.transacoes);
                 setValoresTransacao(resposta.valores);
+                setTotalDeItens(resposta.totalDeItens);
+                setTotalDeItensCarregados(resposta.transacoes.length);
             } catch (erro) {}
         }
         carregarTransacoes();
     }, []);
+
+    function carregarMaisTransacoes() {
+        async function carregar() {
+            try {
+                const resposta = await obterTransacoesDePessoa(pessoaId!, totalDeItensCarregados);
+                setTransacoes((dados) => [...dados, ...resposta.transacoes]);
+                setTotalDeItensCarregados((total) => total + resposta.transacoes.length);
+            } catch (erro) {}
+        }
+        carregar();
+    }
 
     function atualizarValores(transacaoResposta: TransacaoResposta) {
         if (transacaoResposta.tipo === "Despesa") {
@@ -97,6 +113,13 @@ function Transacoes() {
                                 ))}
                             </tbody>
                         </table>
+                        {totalDeItensCarregados < (totalDeItens ?? 0) && (
+                            <div>
+                                <button className="carregar-mais" onClick={carregarMaisTransacoes}>
+                                    Carregar Mais
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ export async function obterTransacoes(): Promise<TransacaoResposta[]> {
     return response.data as TransacaoResposta[];
 }
 
-export async function obterTransacoesDePessoa(pessoaId: string, pularItens: number, quantidadeItens: number): Promise<TrasacoesResposta> {
+export async function obterTransacoesDePessoa(pessoaId: string, pularItens: number = 0, quantidadeItens: number = 100): Promise<TrasacoesResposta> {
     const response = await api.get(`/api/Transacao/${pessoaId}?pularItens=${pularItens}&quantidadeItens=${quantidadeItens}`);
     return response.data as TrasacoesResposta;
 }

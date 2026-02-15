@@ -27,4 +27,5 @@ export interface ValoresTransacao {
 export type TrasacoesResposta = {
     transacoes: TransacaoResposta[];
     valores: ValoresTransacao;
+    totalDeItens: number;
 };
