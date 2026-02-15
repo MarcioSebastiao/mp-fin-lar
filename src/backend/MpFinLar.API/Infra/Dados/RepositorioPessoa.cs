@@ -34,9 +34,13 @@ public sealed class RepositorioPessoa : IRepositorioPessoa
         return true;
     }
 
-    public async Task<IEnumerable<PessoaRespostaDTO>> ObterPessoasAsync()
+    public async Task<IEnumerable<PessoaRespostaDTO>> ObterPessoasAsync(int pularItens, int quantidadeItens)
     {
-        return await _contexto.Pessoas.Select(Mapear()).ToListAsync();
+        return await _contexto.Pessoas
+        .AsNoTracking()
+        .Skip(pularItens)
+        .Take(quantidadeItens)
+        .Select(Mapear()).ToListAsync();
     }
 
     public async Task<Pessoa?> ObterPorIdAsync(Guid id)
@@ -69,5 +73,6 @@ public sealed class RepositorioPessoa : IRepositorioPessoa
         };
     }
 
+    public Task<int> ObterTotalDeItensAsync() => _contexto.Pessoas.CountAsync();
 
 }

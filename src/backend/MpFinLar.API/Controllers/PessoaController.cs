@@ -47,9 +47,9 @@ public sealed class PessoaController : MainController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PessoaRespostaDTO>>> Obter()
+    public async Task<ActionResult<PessoasRespostaDTO>> Obter(int pularItens, int quantidadeItens)
     {
-        var pessoas = await _aplicacao.ObterAsync();
+        var pessoas = await _aplicacao.ObterAsync(pularItens, quantidadeItens);
         return Ok(pessoas);
     }
 }

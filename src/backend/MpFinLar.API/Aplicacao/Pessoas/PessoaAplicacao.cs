@@ -48,7 +48,20 @@ public sealed class PessoaAplicacao : IPessoaAplicacao
         return new(Array.Empty<string>());
     }
 
-    public Task<IEnumerable<PessoaRespostaDTO>> ObterAsync() => _repositorio.ObterPessoasAsync();
+    public async Task<PessoasRespostaDTO> ObterAsync(int pularItens = 0, int quantidadeItens = 100)
+    {
+        if (quantidadeItens <= 0 || quantidadeItens > 100)
+            quantidadeItens = 100;
+
+        var pessoas = await _repositorio.ObterPessoasAsync(pularItens, quantidadeItens);
+        var totalItens = await _repositorio.ObterTotalDeItensAsync();
+
+        return new PessoasRespostaDTO
+        {
+            Pessoas = pessoas,
+            TotalDeItens = totalItens
+        };
+    }
 
     private PessoaRespostaDTO? MapearParaResposta(Pessoa pessoa) => new()
     {
