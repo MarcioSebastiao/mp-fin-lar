@@ -17,3 +17,14 @@ export interface TransacaoResposta {
     Categoria: Categoria;
     Pessoa: Pessoa;
 }
+
+export interface ValoresTransacao {
+    totalEmDespesas: number;
+    totalEmReceitas: number;
+    saldo: number;
+}
+
+export type TrasacoesResposta = {
+    transacoes: TransacaoResposta[];
+    valores: ValoresTransacao;
+};

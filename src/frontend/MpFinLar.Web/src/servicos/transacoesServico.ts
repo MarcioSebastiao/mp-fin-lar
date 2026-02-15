@@ -1,5 +1,5 @@
 import api from "./api";
-import type { TransacaoDto, TransacaoResposta } from "../modelos/Transacao";
+import type { TransacaoDto, TransacaoResposta, TrasacoesResposta } from "../modelos/Transacao";
 
 export async function criarTransacao(dados: TransacaoDto): Promise<TransacaoResposta> {
     return (await api.post("/api/transacao", dados)).data;
@@ -10,7 +10,7 @@ export async function obterTransacoes(): Promise<TransacaoResposta[]> {
     return response.data as TransacaoResposta[];
 }
 
-export async function obterTransacoesDePessoa(pessoaId: string, pularItens: number, quantidadeItens: number): Promise<TransacaoResposta[]> {
+export async function obterTransacoesDePessoa(pessoaId: string, pularItens: number, quantidadeItens: number): Promise<TrasacoesResposta> {
     const response = await api.get(`/api/Transacao/${pessoaId}?pularItens=${pularItens}&quantidadeItens=${quantidadeItens}`);
-    return response.data as TransacaoResposta[];
+    return response.data as TrasacoesResposta;
 }
