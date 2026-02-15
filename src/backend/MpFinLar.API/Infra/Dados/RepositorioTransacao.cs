@@ -25,9 +25,14 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
         await _contexto.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesAsync()
+    public async Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens, int quantidadeItens)
     {
-        return await _contexto.Transacoes.Select(Mapear()).ToListAsync();
+        return await _contexto.Transacoes
+        .AsNoTracking()
+        .Where(t => t.PessoaId == pessoaId)
+        .Skip(pularItens)
+        .Take(quantidadeItens)
+        .Select(Mapear()).ToListAsync();
     }
 
     /// <summary>

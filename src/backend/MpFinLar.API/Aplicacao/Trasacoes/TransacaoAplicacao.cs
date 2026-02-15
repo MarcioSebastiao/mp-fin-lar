@@ -38,7 +38,12 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
         return new(MapearParaResposta(transacao, categoria, pessoa), new(Array.Empty<string>()));
     }
 
-    public Task<IEnumerable<TransacaoRespostaDTO>> ObterAsync() => _repositorio.ObterTransacoesAsync();
+    public Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens = 0, int quantidadeItens = 100)
+    {
+        if(quantidadeItens <= 0 || quantidadeItens > 100)
+            quantidadeItens = 100;
+        return _repositorio.ObterTransacoesDePessoaAsync(pessoaId, pularItens, quantidadeItens);
+    }
 
     private static TransacaoRespostaDTO MapearParaResposta(Transacao transacao, Categoria categoria, Pessoa pessoa) => new()
     {
