@@ -39,6 +39,17 @@ table button {
     cursor: pointer;
 }
 
+.lista-pessoas {
+    flex-wrap: wrap;
+}
+
+.lista-pessoas div {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
 .editar {
     background: #4CAF50;
     color: white;

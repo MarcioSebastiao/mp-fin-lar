@@ -5,3 +5,8 @@ export interface Pessoa {
 }
 
 export type PessoaDto = Omit<Pessoa, "id">;
+
+export type PessoasResposta = {
+    pessoas: Pessoa[];
+    totalDeItens: number;
+};

@@ -2,7 +2,7 @@ import Modal from "../../componentes/Modal";
 import { useEffect, useState } from "react";
 import "./Pessoas.css";
 import { atualizarPessoa, criarPessoa, obterPessoas, removerPessoa as removePessoaService } from "../../servicos/pessoasServico";
-import type { Pessoa, PessoaDto } from "../../modelos/Pessoa";
+import type { Pessoa } from "../../modelos/Pessoa";
 import FormPessoa from "../../componentes/Pessoa/FormPessoa";
 import { Link } from "react-router-dom";
 
@@ -10,15 +10,31 @@ function Pessoas() {
     const [modalAberto, setModalAberto] = useState(false);
     const [pessoaSelecionada, setPessoaSelecionada] = useState<Pessoa | null>(null);
     const [pessoas, setPessoas] = useState<Pessoa[]>([]);
+    const [totalDeItens, setTotalDeItens] = useState(0);
+    const [totalDeItensCarregados, setTotalDeItensCarregados] = useState(0);
 
     useEffect(() => {
         async function carregarPessoas() {
             try {
-                setPessoas(await obterPessoas());
+                const resposta = await obterPessoas();
+                setPessoas(resposta.pessoas);
+                setTotalDeItens(resposta.totalDeItens);
+                setTotalDeItensCarregados(resposta.pessoas.length);
             } catch (erro) {}
         }
         carregarPessoas();
     }, []);
+
+    function carregarMaisPessoas() {
+        async function carregar() {
+            try {
+                const resposta = await obterPessoas(totalDeItensCarregados);
+                setPessoas((dados) => [...dados, ...resposta.pessoas]);
+                setTotalDeItensCarregados((total) => total + resposta.pessoas.length);
+            } catch (erro) {}
+        }
+        carregar();
+    }
 
     function abrirCriacao() {
         setPessoaSelecionada(null);
@@ -93,6 +109,13 @@ function Pessoas() {
                             ))}
                         </tbody>
                     </table>
+                    {totalDeItensCarregados < (totalDeItens ?? 0) && (
+                        <div>
+                            <button className="carregar-mais" onClick={carregarMaisPessoas}>
+                                Carregar Mais
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>
