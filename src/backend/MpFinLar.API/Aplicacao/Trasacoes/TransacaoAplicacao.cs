@@ -20,11 +20,11 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
 
     public async Task<(TransacaoRespostaDTO?, ResultadoAplicacao)> CriarAsync(TransacaoDto transacaoDto)
     {
-        var pessoa = await _repositorioPessoa.ObterPorIdAsync(transacaoDto.IdPessoa);
+        var pessoa = await _repositorioPessoa.ObterPorIdAsync(transacaoDto.PessoaId);
         if (pessoa is null)
             return new(null, new(["Pessoa não encontrada."]));
 
-        var categoria = await _repositorioCategoria.ObterPorIdAsync(transacaoDto.IdCategoria);
+        var categoria = await _repositorioCategoria.ObterPorIdAsync(transacaoDto.CategoriaId);
         if (categoria is null)
             return new(null, new(["Categoria não encontrada."]));
 

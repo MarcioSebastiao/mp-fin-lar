@@ -15,8 +15,8 @@ public sealed class TransacaoDto
     public TipoTrasacao Tipo { get; set; }
 
     [Required(ErrorMessage = "A categoria é obrigatória.")]
-    public Guid IdCategoria { get; set; }
+    public Guid CategoriaId { get; set; }
 
     [Required(ErrorMessage = "A pessoa é obrigatória.")]
-    public Guid IdPessoa { get; set; }
+    public Guid PessoaId { get; set; }
 }
