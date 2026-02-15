@@ -8,15 +8,31 @@ import "./Categorias.css";
 function Categorias() {
     const [modalAberto, setModalAberto] = useState(false);
     const [categoria, setCategoria] = useState<Categoria[]>([]);
+    const [totalDeItens, setTotalDeItens] = useState(0);
+    const [totalDeItensCarregados, setTotalDeItensCarregados] = useState(0);
 
     useEffect(() => {
         async function carregarCategorias() {
             try {
-                setCategoria(await obterCategorias());
+                const resposta = await obterCategorias();
+                setCategoria(resposta.categorias);
+                setTotalDeItens(resposta.totalDeItens);
+                setTotalDeItensCarregados(resposta.categorias.length);
             } catch (erro) {}
         }
         carregarCategorias();
     }, []);
+
+    function carregarMaisCategorias() {
+        async function carregar() {
+            try {
+                const resposta = await obterCategorias(totalDeItensCarregados);
+                setCategoria((dados) => [...dados, ...resposta.categorias]);
+                setTotalDeItensCarregados((total) => total + resposta.categorias.length);
+            } catch (erro) {}
+        }
+        carregar();
+    }
 
     return (
         <>
@@ -50,6 +66,13 @@ function Categorias() {
                             ))}
                         </tbody>
                     </table>
+                    {totalDeItensCarregados < (totalDeItens ?? 0) && (
+                        <div>
+                            <button className="carregar-mais" onClick={carregarMaisCategorias}>
+                                Carregar Mais
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

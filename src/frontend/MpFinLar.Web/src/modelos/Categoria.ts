@@ -9,3 +9,8 @@ export type CategoriaDto = {
     descricao: string;
     finalidade: number;
 };
+
+export type CategoriasResposta = {
+    categorias: Categoria[];
+    totalDeItens: number;
+};

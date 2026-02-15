@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { set, useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import type { ErroAPI } from "../../modelos/ErrosApi";
 import { extrairMensagensErro } from "../../servicos/api";
 import type { TransacaoDto, TransacaoResposta } from "../../modelos/Transacao";
@@ -33,6 +33,9 @@ function FormCategoria({ aoSucesso }: FormCategoriaProps) {
     const [categorias, setCategorias] = useState<Categoria[]>([]);
     const [categoriaId, setCategoriaId] = useState<string>("");
 
+    const [totalDeCategorias, setTotalDeCategorias] = useState(0);
+    const [totalDeCategoriasCarregadas, setTotalDeCategoriasCarregadas] = useState(0);
+
     async function enviar(transacao: TransacaoDto) {
         try {
             const novaTransacao = await criarTransacao({ ...transacao, pessoaId: pessoaId!, categoriaId: categoriaId });
@@ -49,11 +52,25 @@ function FormCategoria({ aoSucesso }: FormCategoriaProps) {
     useEffect(() => {
         async function carregarCategorias() {
             try {
-                setCategorias(await obterCategorias());
+                const resposta = await obterCategorias();
+                setCategorias(resposta.categorias);
+                setTotalDeCategorias(resposta.totalDeItens);
+                setTotalDeCategoriasCarregadas(resposta.categorias.length);
             } catch (erro) {}
         }
         carregarCategorias();
     }, []);
+
+    function carregarMaisCategorias() {
+        async function carregar() {
+            try {
+                const resposta = await obterCategorias(totalDeCategoriasCarregadas);
+                setCategorias((dados) => [...dados, ...resposta.categorias]);
+                setTotalDeCategoriasCarregadas((total) => total + resposta.categorias.length);
+            } catch (erro) {}
+        }
+        carregar();
+    }
 
     return (
         <div className="form-transacao">
@@ -104,18 +121,23 @@ function FormCategoria({ aoSucesso }: FormCategoriaProps) {
                             {categorias.map((categoria) => (
                                 <div className="item" onClick={() => setCategoriaId(categoria.id)}>
                                     <div>
-                                        <label title={categoria.descricao} htmlFor={categoria.descricao}>{categoria.descricao}</label>
+                                        <label title={categoria.descricao} htmlFor={categoria.descricao}>
+                                            {categoria.descricao}
+                                        </label>
                                         <label htmlFor={categoria.finalidade}>{categoria.finalidade}</label>
                                     </div>
-                                    <input
-                                        type="radio"
-                                        name="categoria"
-                                        id={categoria.id}
-                                        checked={categoriaId === categoria.id}
-                                    />
+                                    <input type="radio" name="categoria" id={categoria.id} checked={categoriaId === categoria.id} />
                                 </div>
                             ))}
                         </div>
+
+                        {totalDeCategoriasCarregadas < (totalDeCategorias ?? 0) && (
+                            <div>
+                                <button type="button" className="carregar-mais" onClick={carregarMaisCategorias}>
+                                    Carregar Mais
+                                </button>
+                            </div>
+                        )}
                     </fieldset>
                 </div>
                 <button type="submit">Criar</button>
