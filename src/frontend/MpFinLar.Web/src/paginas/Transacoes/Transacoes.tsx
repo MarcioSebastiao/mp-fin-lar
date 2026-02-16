@@ -5,6 +5,7 @@ import { obterTransacoesDePessoa } from "../../servicos/transacoesServico";
 import "./Transacoes.css";
 import Modal from "../../componentes/Modal";
 import FormTransacao from "../../componentes/Pessoa/FormTransacao";
+import { formatarMoeda } from "../../utilitarios/formatadores";
 
 function Transacoes() {
     const location = useLocation();
@@ -87,14 +88,14 @@ function Transacoes() {
                 <div className="valores">
                     <p>
                         Total em Despesas:
-                        <span> {valoresTransacao.totalEmDespesas}</span>
+                        <span> {formatarMoeda(valoresTransacao.totalEmDespesas)}</span>
                     </p>
                     <p>
                         Total em Receitas:
-                        <span>{valoresTransacao.totalEmReceitas}</span>
+                        <span>{formatarMoeda(valoresTransacao.totalEmReceitas)}</span>
                     </p>
                     <p>
-                        Saldo: <span className={valoresTransacao.saldo < 0 ? "negativo" : "positivo"}>{valoresTransacao.saldo}</span>
+                        Saldo: <span className={valoresTransacao.saldo < 0 ? "negativo" : "positivo"}>{formatarMoeda(valoresTransacao.saldo)}</span>
                     </p>
                 </div>
 
@@ -117,7 +118,7 @@ function Transacoes() {
                                         <span className={transacao.tipo.toLocaleLowerCase()}>{transacao.tipo}</span>
                                     </td>
                                     <td>
-                                        <span>{transacao.valor}</span>
+                                        <span>{formatarMoeda(transacao.valor)}</span>
                                     </td>
                                 </tr>
                             ))}
