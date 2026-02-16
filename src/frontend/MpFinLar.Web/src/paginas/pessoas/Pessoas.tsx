@@ -98,7 +98,7 @@ function Pessoas() {
                                         <span>{pessoa.nome}</span>
                                     </td>
                                     <td>
-                                        <span>{pessoa.idade}</span>
+                                        <span>{pessoa.idade} anos</span>
                                     </td>
                                     <td>
                                         <div>
