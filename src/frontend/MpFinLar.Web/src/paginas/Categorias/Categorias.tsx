@@ -3,7 +3,6 @@ import type { Categoria } from "../../modelos/Categoria";
 import { obterCategorias } from "../../servicos/categoriaServico";
 import Modal from "../../componentes/Modal";
 import FormCategoria from "../../componentes/Pessoa/FormCategoria";
-import "./Categorias.css";
 
 function Categorias() {
     const [modalAberto, setModalAberto] = useState(false);
@@ -49,15 +48,15 @@ function Categorias() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Descrição</th>
-                                <th>Finalidade</th>
+                                <th>Descrição:</th>
+                                <th>Finalidade:</th>
                             </tr>
                         </thead>
                         <tbody>
                             {categoria.map((categoria) => (
                                 <tr key={categoria.id}>
-                                    <td>{categoria.descricao}</td>
-                                    <td>{categoria.finalidade}</td>
+                                    <td><span>{categoria.descricao}</span></td>
+                                    <td><span className={categoria.finalidade.toLocaleLowerCase()}>{categoria.finalidade}</span></td>
                                 </tr>
                             ))}
                         </tbody>

@@ -63,62 +63,67 @@ function Transacoes() {
 
     return (
         <>
-            <div>
-                <h2>{location.state?.nomePessoa} - Transações:</h2>
+            <div className="container transacao">
+                <h2>
+                    <span>{location.state?.nomePessoa} </span> <span> - Transações</span>
+                </h2>
 
-                <div className="container transacao">
+                <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)} tituloBotaoAbrir="Nova Transação">
+                    <FormTransacao
+                        aoSucesso={async (novaTransacao) => {
+                            setTransacoes((dados) => [novaTransacao, ...dados]);
+                            atualizarValores(novaTransacao);
+                            setModalAberto(false);
+                        }}
+                    />
+                </Modal>
 
-                    <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)} tituloBotaoAbrir="Nova Transação">
-                        <FormTransacao
-                            aoSucesso={async (novaTransacao) => {
-                                setTransacoes((dados) => [novaTransacao, ...dados]);
-                                atualizarValores(novaTransacao);
-                                setModalAberto(false);
-                            }}
-                        />
-                    </Modal>
+                <div className="valores">
+                    <p>
+                        Total em Despesas:
+                        <span> {valoresTransacao.totalEmDespesas}</span>
+                    </p>
+                    <p>
+                        Total em Receitas:
+                        <span>{valoresTransacao.totalEmReceitas}</span>
+                    </p>
+                    <p>
+                        Saldo: <span className={valoresTransacao.saldo < 0 ? "negativo" : "positivo"}>{valoresTransacao.saldo}</span>
+                    </p>
+                </div>
 
-                    <div className="valores">
-                        <p>
-                            Total em Despesas:
-                            <span> {valoresTransacao.totalEmDespesas}</span>
-                        </p>
-                        <p>
-                            Total em Receitas:
-                            <span>{valoresTransacao.totalEmReceitas}</span>
-                        </p>
-                        <p>
-                            Saldo: <span>{valoresTransacao.saldo}</span>
-                        </p>
-                    </div>
-
-                    <div className="lista-transacao">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Descrição</th>
-                                    <th>Tipo</th>
-                                    <th>Valor</th>
+                <div className="lista-transacao">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Descrição:</th>
+                                <th>Tipo:</th>
+                                <th>Valor:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transacoes.map((transacao) => (
+                                <tr key={transacao.id}>
+                                    <td>
+                                        <span>{transacao.descricao}</span>
+                                    </td>
+                                    <td>
+                                        <span className={transacao.tipo.toLocaleLowerCase()}>{transacao.tipo}</span>
+                                    </td>
+                                    <td>
+                                        <span>{transacao.valor}</span>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {transacoes.map((transacoes) => (
-                                    <tr key={transacoes.id}>
-                                        <td>{transacoes.descricao}</td>
-                                        <td>{transacoes.tipo}</td>
-                                        <td>{transacoes.valor}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        {totalDeItensCarregados < (totalDeItens ?? 0) && (
-                            <div>
-                                <button className="carregar-mais" onClick={carregarMaisTransacoes}>
-                                    Carregar Mais
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
+                    {totalDeItensCarregados < (totalDeItens ?? 0) && (
+                        <div>
+                            <button className="carregar-mais" onClick={carregarMaisTransacoes}>
+                                Carregar Mais
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

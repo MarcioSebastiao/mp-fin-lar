@@ -64,42 +64,48 @@ function Pessoas() {
     return (
         <>
             <div className="container">
-            <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)} tituloBotaoAbrir="Adicionar Pessoa">
-                <FormPessoa
-                    pessoaInicial={pessoaSelecionada ?? undefined}
-                    titulo={pessoaSelecionada ? "Editar Pessoa" : "Nova Pessoa"}
-                    textoBotao={pessoaSelecionada ? "Salvar" : "Cadastrar"}
-                    onSubmit={(pessoaDto) => (pessoaSelecionada ? atualizarPessoa(pessoaSelecionada.id, pessoaDto) : criarPessoa(pessoaDto))}
-                    aoSucesso={async (novaPessoa) => {
-                        pessoaSelecionada ? atualizarPessoaLista(novaPessoa) : adicionarPessoaLista(novaPessoa);
-                        setModalAberto(false);
-                    }}
-                />
-            </Modal>
+                <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)} tituloBotaoAbrir="Adicionar Pessoa">
+                    <FormPessoa
+                        pessoaInicial={pessoaSelecionada ?? undefined}
+                        titulo={pessoaSelecionada ? "Editar Pessoa" : "Nova Pessoa"}
+                        textoBotao={pessoaSelecionada ? "Salvar" : "Cadastrar"}
+                        onSubmit={(pessoaDto) => (pessoaSelecionada ? atualizarPessoa(pessoaSelecionada.id, pessoaDto) : criarPessoa(pessoaDto))}
+                        aoSucesso={async (novaPessoa) => {
+                            pessoaSelecionada ? atualizarPessoaLista(novaPessoa) : adicionarPessoaLista(novaPessoa);
+                            setModalAberto(false);
+                        }}
+                    />
+                </Modal>
                 <div className="lista-pessoas">
                     <table>
                         <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Idade</th>
+                                <th>Nome:</th>
+                                <th>Idade:</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {pessoas.map((pessoa) => (
                                 <tr key={pessoa.id}>
-                                    <td>{pessoa.nome}</td>
-                                    <td>{pessoa.idade}</td>
                                     <td>
-                                        <Link to={`${pessoa.id}/transacoes`} state={{ nomePessoa: pessoa.nome }}>
-                                            Transações
-                                        </Link>
-                                        <button className="editar" onClick={() => abrirEdicao(pessoa)}>
-                                            Editar
-                                        </button>
-                                        <button className="excluir" onClick={async () => removerPessoa(pessoa.id)}>
-                                            Excluir
-                                        </button>
+                                        <span>{pessoa.nome}</span>
+                                    </td>
+                                    <td>
+                                        <span>{pessoa.idade}</span>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <Link to={`${pessoa.id}/transacoes`} state={{ nomePessoa: pessoa.nome }}>
+                                                Transações
+                                            </Link>
+                                            <button className="editar" onClick={() => abrirEdicao(pessoa)}>
+                                                Editar
+                                            </button>
+                                            <button className="excluir" onClick={async () => removerPessoa(pessoa.id)}>
+                                                Excluir
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

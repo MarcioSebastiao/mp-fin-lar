@@ -1,4 +1,13 @@
-
+.mensagens-erro  {
+    max-width: 400px;
+}
+.mensagens-erro span {
+    margin-bottom: 10px;
+    line-height: 1.1;
+    font-weight: bold;
+    color: var(--cor-erro);
+    display: block;
+}
 .form-transacao .item-formulario fieldset   {
     max-height: 100px;
     overflow-y: auto;

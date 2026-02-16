@@ -17,11 +17,32 @@ function Modal({ aberto, aoFechar, children, tituloBotaoAbrir }: ModalProps) {
     return (
         <>
             {abertoInterno && (
-                <div className="modal" onClick={() => { setAbertoInterno(false); aoFechar(); }}>
+                <div
+                    className="modal"
+                    onClick={() => {
+                        setAbertoInterno(false);
+                        aoFechar();
+                    }}
+                >
                     <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
                         <div>
-                            <button className="modal-fechar" onClick={() => { setAbertoInterno(false); aoFechar(); }}>
-                                x
+                            <button
+                                className="modal-fechar"
+                                onClick={() => {
+                                    setAbertoInterno(false);
+                                    aoFechar();
+                                }}
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="icone fechar"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
                             </button>
                         </div>
                         {children}
@@ -29,8 +50,10 @@ function Modal({ aberto, aoFechar, children, tituloBotaoAbrir }: ModalProps) {
                 </div>
             )}
 
-            <div className="botao-abrir-modal">
-                <button onClick={() => setAbertoInterno(true)}>{tituloBotaoAbrir}</button>
+            <div className="abrir-modal">
+                <button className="botao" onClick={() => setAbertoInterno(true)}>
+                    {tituloBotaoAbrir}
+                </button>
             </div>
         </>
     );

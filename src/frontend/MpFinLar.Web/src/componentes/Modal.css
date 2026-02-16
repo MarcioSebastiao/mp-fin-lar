@@ -1,3 +1,9 @@
+.abrir-modal {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
+
 .modal {
   position: absolute;
   top: 0;
@@ -29,10 +35,4 @@
   font-size: 18px;
   cursor: pointer;
   padding: 0;
-}
-
-.botao-abrir-modal {
-  display: flex;
-  width: 100%;
-  justify-content: end;
 }

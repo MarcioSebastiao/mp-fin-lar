@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter, Link } from "react-router-dom";
+import { Route, Routes, BrowserRouter, NavLink } from "react-router-dom";
 import Pessoas from "../paginas/pessoas/Pessoas";
 import Categorias from "../paginas/Categorias/Categorias";
 import Transacoes from "../paginas/Transacoes/Transacoes";
@@ -11,10 +11,18 @@ export default function Rotas() {
     return (
         <BrowserRouter>
             <nav>
-                <Link to="/pessoas">Pessoas</Link>
-                <Link to="/categorias">Categorias</Link>
+                <h2>MpFinLar</h2>
+
+                <div>
+                    <NavLink to="/pessoas" className={({ isActive }) => (isActive ? "nav__link nav-link--ativo" : "nav-link")}>
+                        Pessoas
+                    </NavLink>
+                    <NavLink to="/categorias" className={({ isActive }) => (isActive ? "nav__link nav-link--ativo" : "nav-link")}>
+                        Categorias
+                    </NavLink>
+                </div>
             </nav>
-            
+
             <Routes>
                 <Route path="/" element={<Pessoas />} />
                 <Route path="/pessoas" element={<Pessoas />} />

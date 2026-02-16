@@ -1,9 +1,9 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: 16px;
 
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -11,6 +11,22 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --cor-primaria: #535bf2;
+  --cor-primaria-hover: #3c43c3;
+
+  --cor-sucesso: #2da633;
+  --cor-erro: #c63333;
+  --cor-erro-hover: #a82a2a;
+
+  --cor-borda: #e2e8f012;
+
+  --cor-fundo: #275888;
+  --cor-input: #FFFFFF;
+
+  --cor-texto-destacado: #646cff;
+  --cor-texto-escuro: #333f49;
+  --cor-texto-suave: #64748b;
 }
 
 body {
@@ -25,119 +41,150 @@ body {
   padding: 2rem;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  font-weight: bold;
+  flex-wrap: wrap;
 }
 
-a:hover {
-  color: #535bf2;
-}
-
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-input {
-  border: none;
-  outline: none;
-  box-shadow: none;
-  font-size: 1em;
-}
-
-.item-formulario {
-  margin-bottom: 20px;
-}
-
-.item-formulario label {
+nav h2 {
   display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  color: var(--cor-texto-suave);
 }
 
-.item-formulario input[type="text"], input[type="number"] {
-  padding: 10px;
-  min-width: 300px;
-  width: calc(100% - 20px);
-  border-radius: 8px;
-  box-shadow: none;
-}
-
-.mensagens-erro {
+nav div {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
   width: 100%;
 }
 
-.mensagens-erro span {
-  display: block;
+.nav-link--ativo {
+  font-size: 1.1rem;
+  transition: font-size 0.3s ease;
 }
 
-.app {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+nav a:hover {
+  color: var(--cor-primaria);
 }
 
-.app a {
-  margin-right: 20px;
-  text-align: center;
+a {
+  text-decoration: none;
+  color: var(--cor-texto-destacado);
 }
 
-nav {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
-  gap: 20px;
-  margin-bottom: 20px;
-  font-size: 18px;
-  border-bottom: 1px solid #ccc2;
-}
-
-select {
-  padding: 10px;
-  width: calc(100% - 50px);
-  border-radius: 8px;
-  box-shadow: none;
-  outline: none;
+.botao,
+button {
+  background-color: var(--cor-primaria);
+  color: var(--cor-textos);
   border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
   cursor: pointer;
+  max-width: 300px;
+  font-weight: bold;
 }
 
+.botao:hover,
+button:hover {
+  background-color: var(--cor-primaria-hover);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+form button {
+  align-self: center;
+  min-width: 150px;
+  margin: 1rem 0;
+}
+
+form .item-formulario {
+  display: flex;
+  flex-direction: column;
+}
+
+form .item-formulario label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+form input,
+form select {
+  padding: 0.5rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+  background-color: var(--cor-input);
+  color: var(--cor-texto-escuro);
+  font-weight: bold;
+  font-size: 1rem;
+
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+td span {
+  text-align: left;
+  display: inline-block;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+td:last-child div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+td .receita {
+  color: var(--cor-sucesso);
+  font-weight: bold;
+}
+
+td .despesa {
+  color: var(--cor-erro);
+  font-weight: bold;
+}
+
+td .ambas {
+  font-weight: bold;
+}
+
+.icone {
+  width: 25px;
+  height: 25px;
 
 
+}
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+.icone:hover {
+  stroke-width: 3;
+}
 
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
+.modal-fechar:hover {
+  background-color: transparent;
 }
