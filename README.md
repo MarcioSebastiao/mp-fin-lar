@@ -4,7 +4,7 @@ Sistema web para controle financeiro pessoal, permitindo o gerenciamento de Pess
 
 ---
 
-##  Descrição
+## Descrição
 
 A aplicação permite:
 
@@ -12,28 +12,84 @@ A aplicação permite:
 - Cadastro de Categorias
 - Registro de Transações (Receitas e Despesas)
 - Consulta de totais por pessoa
-- Cálculo de saldo 
+- Cálculo de saldo
 
 O sistema aplica regras de negócio no backend e utiliza um frontend moderno com React + TypeScript.
 
 ---
 
-##  Arquitetura
+## Arquitetura
 
 O projeto é dividido em:
 
 ### Backend
+
 - ASP.NET Core
 - Entity Framework Core
 - Validações de domínio
 - Relacionamentos com integridade referencial
-- Regras de negócio aplicadas na camada de entidade
+- Regras de negócio aplicadas na camada de dominio
+
+**Estrutura do Projeto:**
+
+O projeto foi estruturado com base nos princípios da **Clean Architecture**, priorizando separação de responsabilidades e isolamento das regras de negócio.
+
+**Camadas:**
+
+- **Domínio** → Contém regras de negócio, entidades e validações.
+- **Aplicação** → Orquestra fluxos e casos de uso.
+- **Infraestrutura** → Persistência (EF Core + PostgreSQL).
+
+  (separado em pastas no projeto da API)
+
+- **API** → Exposição dos endpoints HTTP.
+
+---
+
+**Notification Pattern:**
+
+O projeto utiliza o **Notification Pattern** para validações de domínio.
+
+**Conceito**
+
+No Notification Pattern, a entidade pode ser instanciada em estado inválido — isso é intencional.
+
+Ao invés de lançar exceções imediatamente, o domínio:
+
+- Registra violações de regra
+- Armazena notificações de erro
+- Permite que a aplicação decida o fluxo
+
+Isso garante que:
+
+- Todas as regras de negócio sejam avaliadas
+- Todos os erros sejam retornados de uma vez
+- Garante que nenhum estado inválido seja persistido
+
+A aplicação verifica a propriedade `EhValido` antes de realizar qualquer persistência.
+
+**Princípios Aplicados**
+
+- Separação de responsabilidades
+- Domínio rico (Rich Domain Model)
+- Validações centralizadas na entidade
+- Persistência desacoplada das regras
+- Uso de EF Core com mapeamento explícito
+
+---
 
 ### Frontend
+
 - React
 - TypeScript
 - React Router
 - Componentização reutilizável
+- Design System mínimo próprio
+
+**Conceitos Aplicados**
+
+- Componentização reutilizável
+- Separação entre serviços e utilitários
 - Design System mínimo próprio
 
 ---
@@ -54,9 +110,9 @@ O projeto é dividido em:
 - Identificador único
 - Descrição (máx. 400 caracteres)
 - Finalidade:
-  - Despesa
-  - Receita
-  - Ambas
+    - Despesa
+    - Receita
+    - Ambas
 
 ---
 
@@ -66,14 +122,15 @@ O projeto é dividido em:
 - Descrição (máx. 400 caracteres)
 - Valor positivo
 - Tipo:
-  - Receita
-  - Despesa
+    - Receita
+    - Despesa
 - Categoria compatível com o tipo
 - Pessoa vinculada
 
 #### Regra especial
 
 Se a pessoa for menor de 18 anos:
+
 - Apenas transações do tipo **Despesa** são permitidas.
 
 ---
@@ -86,9 +143,10 @@ Se a pessoa for menor de 18 anos:
 
 ---
 
-##  Funcionalidades
+## Funcionalidades
 
 ### Pessoas
+
 - Criar
 - Editar
 - Excluir
@@ -96,21 +154,24 @@ Se a pessoa for menor de 18 anos:
 - Acessar transações da pessoa
 
 ### Categorias
+
 - Criar
 - Listar
 
 ### Transações
+
 - Criar
 - Listar por pessoa
 
 ### Consulta de Totais
+
 - Total de receitas por pessoa
 - Total de despesas por pessoa
 - Saldo individual (Receita - Despesa)
 
 ---
 
-##  Como Rodar o Projeto Localmente
+## Como Rodar o Projeto Localmente
 
 Clone o repositório:
 
@@ -135,7 +196,7 @@ psql --version
 
 ```
 
-Rodando o Backend (.NET + PostgreSQL) 
+Rodando o Backend (.NET + PostgreSQL)
 
 O banco de dados utilizado é o PostgreSQL.
 
@@ -153,6 +214,7 @@ Exemplo:
 }
 
 ```
+
 Criando o Banco de Dados
 
 navegue para a pasta da api e rode o comando:
@@ -162,9 +224,11 @@ navegue para a pasta da api e rode o comando:
 dotnet ef database update
 
 ```
+
 Rodando a aplicação:
 
 execute o seguinte comando na pasta da api:
+
 ```bash
 
 dotnet run
@@ -176,8 +240,7 @@ A API estará disponível em:
 https://localhost:7196 e http://localhost:5149
 ```
 
-
-Rodando o Frontend (React + Vite):
+**Rodando o Frontend (React + Vite):**
 
 ```bash
 1 - Acesse a pasta do frontend:
@@ -200,4 +263,3 @@ npm run dev
 http://localhost:3333
 
 ```
-
