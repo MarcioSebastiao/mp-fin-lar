@@ -24,9 +24,10 @@ O projeto é dividido em:
 
 ### Backend
 
-- ASP.NET Core
+- ASP.NET Core (.NET 10)
 - Entity Framework Core
-- Validações de domínio
+- PostgreSQL
+- Validações de domínio (Notification Pattern)
 - Relacionamentos com integridade referencial
 - Regras de negócio aplicadas na camada de dominio
 
@@ -40,7 +41,7 @@ O projeto foi estruturado com base nos princípios da **Clean Architecture**, pr
 - **Aplicação** → Orquestra fluxos e casos de uso.
 - **Infraestrutura** → Persistência (EF Core + PostgreSQL).
 
-  (separado em pastas no projeto da API)
+    (separado em pastas no projeto da API)
 
 - **API** → Exposição dos endpoints HTTP.
 
@@ -82,9 +83,8 @@ A aplicação verifica a propriedade `EhValido` antes de realizar qualquer persi
 
 - React
 - TypeScript
-- React Router
-- Componentização reutilizável
-- Design System mínimo próprio
+- react-router-dom
+- react-hook-form (gerenciamento e validação de formulários)
 
 **Conceitos Aplicados**
 
@@ -175,7 +175,9 @@ Se a pessoa for menor de 18 anos:
 
 Clone o repositório:
 
-git clone <URL_DO_REPOSITORIO>
+```bash
+git clone https://github.com/MarcioSebastiao/mp-fin-lar.git
+```
 
 ### Pré-requisitos
 
@@ -186,7 +188,7 @@ Certifique-se de ter instalado:
 - .NET SDK (versão compatível com o projeto - atualmente 10.0)
 - PostgreSQL
 
-Verifique as versões:
+**Verifique as versões:**
 
 ```bash
 node -v
@@ -196,11 +198,9 @@ psql --version
 
 ```
 
-Rodando o Backend (.NET + PostgreSQL)
+### Rodando o Backend (.NET + PostgreSQL):
 
-O banco de dados utilizado é o PostgreSQL.
-
-Certifique-se de que:
+**Certifique-se de que:**
 
 O PostgreSQL esteja rodando
 
@@ -208,16 +208,11 @@ A string de conexão esteja configurada corretamente no appsettings.json
 
 Exemplo:
 
-```bash
-"ConnectionStrings": {
-  "DefaultConnection": "Host=localhost;Port=5432;Database=MpFinLarDB;Username=postgres;Password=sua_senha"
-}
+`"ConnectionStrings": { "DefaultConnection": Host=localhost;Port=5432;Database=MpFinLarDB;Username=postgres;Password=sua_senha" }`
 
-```
+**Criando o Banco de Dados:**
 
-Criando o Banco de Dados
-
-navegue para a pasta da api e rode o comando:
+Navegue para a pasta da api e rode o comando:
 
 ```bash
 
@@ -225,9 +220,9 @@ dotnet ef database update
 
 ```
 
-Rodando a aplicação:
+**Rodando a aplicação:**
 
-execute o seguinte comando na pasta da api:
+Execute o seguinte comando na pasta da api:
 
 ```bash
 
@@ -236,9 +231,7 @@ dotnet run
 
 A API estará disponível em:
 
-```bash
-https://localhost:7196 e http://localhost:5149
-```
+`https://localhost:7196 e http://localhost:5149`
 
 **Rodando o Frontend (React + Vite):**
 
