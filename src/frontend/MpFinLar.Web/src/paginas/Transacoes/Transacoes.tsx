@@ -68,7 +68,7 @@ function Transacoes() {
                     <span>{location.state?.nomePessoa} </span> <span> - Transações</span>
                 </h2>
 
-                <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)} tituloBotaoAbrir="Nova Transação">
+                <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)}>
                     <FormTransacao
                         aoSucesso={async (novaTransacao) => {
                             setTransacoes((dados) => [novaTransacao, ...dados]);
@@ -77,6 +77,12 @@ function Transacoes() {
                         }}
                     />
                 </Modal>
+
+                <div className="abrir-modal">
+                    <button className="botao" onClick={() => setModalAberto(true)}>
+                        Nova Transação
+                    </button>
+                </div>
 
                 <div className="valores">
                     <p>

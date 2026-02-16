@@ -64,7 +64,7 @@ function Pessoas() {
     return (
         <>
             <div className="container">
-                <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)} tituloBotaoAbrir="Adicionar Pessoa">
+                <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)}>
                     <FormPessoa
                         pessoaInicial={pessoaSelecionada ?? undefined}
                         titulo={pessoaSelecionada ? "Editar Pessoa" : "Nova Pessoa"}
@@ -76,6 +76,12 @@ function Pessoas() {
                         }}
                     />
                 </Modal>
+
+                <div className="abrir-modal">
+                    <button className="botao" onClick={abrirCriacao}>
+                        Adicionar Pessoa
+                    </button>
+                </div>
                 <div className="lista-pessoas">
                     <table>
                         <thead>
