@@ -38,6 +38,7 @@ public sealed class RepositorioPessoa : IRepositorioPessoa
     {
         return await _contexto.Pessoas
         .AsNoTracking()
+        .OrderByDescending(p => p.DataCriacao)
         .Skip(pularItens)
         .Take(quantidadeItens)
         .Select(Mapear()).ToListAsync();

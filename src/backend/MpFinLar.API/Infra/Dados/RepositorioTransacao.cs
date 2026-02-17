@@ -31,6 +31,7 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
         return await _contexto.Transacoes
         .AsNoTracking()
         .Where(t => t.PessoaId == pessoaId)
+        .OrderByDescending(t => t.DataCriacao)
         .Skip(pularItens)
         .Take(quantidadeItens)
         .Select(Mapear()).ToListAsync();

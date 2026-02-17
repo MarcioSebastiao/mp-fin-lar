@@ -26,10 +26,11 @@ public sealed class RepositorioCategoria : IRepositorioCategoria
 
     }
 
-    public async Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync( int pularItens, int quantidadeItens)
+    public async Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync(int pularItens, int quantidadeItens)
     {
         return await _contexto.Categorias
         .AsNoTracking()
+        .OrderByDescending(c => c.DataCriacao)
         .Skip(pularItens)
         .Take(quantidadeItens)
         .Select(Mapear()).ToListAsync();
