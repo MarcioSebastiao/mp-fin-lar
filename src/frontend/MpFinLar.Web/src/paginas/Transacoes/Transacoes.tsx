@@ -5,7 +5,7 @@ import { obterTransacoesDePessoa } from "../../servicos/transacoesServico";
 import "./Transacoes.css";
 import Modal from "../../componentes/Modal";
 import FormTransacao from "../../componentes/Pessoa/FormTransacao";
-import { formatarMoeda } from "../../utilitarios/formatadores";
+import { formatarData, formatarMoeda } from "../../utilitarios/formatadores";
 
 function Transacoes() {
     const location = useLocation();
@@ -103,6 +103,7 @@ function Transacoes() {
                     <table>
                         <thead>
                             <tr>
+                                <th>Data de Criação:</th>
                                 <th>Descrição:</th>
                                 <th>Categoria:</th>
                                 <th>Tipo:</th>
@@ -112,6 +113,9 @@ function Transacoes() {
                         <tbody>
                             {transacoes.map((transacao) => (
                                 <tr key={transacao.id}>
+                                    <td>
+                                        <span>{formatarData(transacao.dataCriacao)}</span>
+                                    </td>
                                     <td>
                                         <span>{transacao.descricao}</span>
                                     </td>

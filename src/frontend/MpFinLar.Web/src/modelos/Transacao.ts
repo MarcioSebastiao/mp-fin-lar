@@ -11,6 +11,7 @@ export interface TransacaoDto {
 
 export interface TransacaoResposta {
     id: string;
+    dataCriacao: string;
     descricao: string;
     valor: number;
     tipo: string;
