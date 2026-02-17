@@ -14,7 +14,7 @@ function Categorias() {
     const [categoria, setCategoria] = useState<Categoria[]>([]);
     const [totalDeItens, setTotalDeItens] = useState(0);
     const [totalDeItensCarregados, setTotalDeItensCarregados] = useState(0);
-    const [valoresCategoria, setValoresTransacao] = useState<{ DescricaoCategoria: string; ValoresTransacao: ValoresTransacao }>({
+    const [valoresCategoria, setValoresCategoria] = useState<{ DescricaoCategoria: string; ValoresTransacao: ValoresTransacao }>({
         DescricaoCategoria: "",
         ValoresTransacao: {
             totalEmDespesas: 0,
@@ -106,7 +106,7 @@ function Categorias() {
                                         <span
                                             onClick={async () => {
                                                 const valores = await obterValoresTransacoesPorCategoria(categoria.id);
-                                                setValoresTransacao({ DescricaoCategoria: categoria.descricao, ValoresTransacao: valores });
+                                                setValoresCategoria({ DescricaoCategoria: categoria.descricao, ValoresTransacao: valores });
                                                 setModalValoresAberto(true);
                                             }}
                                         >
