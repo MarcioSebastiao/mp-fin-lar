@@ -62,6 +62,17 @@ public sealed class TransacaoAplicacao : ITransacaoAplicacao
         return transacoes;
     }
 
+    public async Task<ValoresTransacaoRespostaDTO> ObterValoresPorCategoriaAsync(Guid categoriaId)
+    {
+        var valores = await _repositorio.ObterValoresPorCategoriaAsync(categoriaId);
+        return new()
+        {
+            TotalEmDespesas = valores.TotalEmDespesas,
+            TotalEmReceitas = valores.TotalEmReceitas,
+            Saldo = valores.Saldo
+        };
+    }
+
     private static TransacaoRespostaDTO MapearParaResposta(Transacao transacao, Categoria categoria, Pessoa pessoa) => new()
     {
         Id = transacao.Id,

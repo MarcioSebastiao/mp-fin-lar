@@ -54,6 +54,24 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
         );
     }
 
+    public async Task<ValoresTransacoes> ObterValoresPorCategoriaAsync(Guid categoriaId)
+    {
+        var valores = await _contexto.Transacoes
+        .AsNoTracking()
+        .Where(t => t.CategoriaId == categoriaId)
+        .GroupBy(t => t.Tipo)
+        .Select(g => new
+        {
+            Tipo = g.Key,
+            Total = g.Sum(t => t.Valor)
+        }).ToListAsync();
+
+        return new ValoresTransacoes(
+            totalEmDespesas: valores.FirstOrDefault(v => v.Tipo == TipoTrasacao.Despesa)?.Total ?? 0,
+            totalEmReceitas: valores.FirstOrDefault(v => v.Tipo == TipoTrasacao.Receita)?.Total ?? 0
+        );
+    }
+
     public Task<int> ObterTotalDeTransacoesDePessoaAsync(Guid pessoaId)
     {
         return _contexto.Transacoes

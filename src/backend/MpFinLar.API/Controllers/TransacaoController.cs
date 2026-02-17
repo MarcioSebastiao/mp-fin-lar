@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MpFinLar.API.Aplicacao;
 using MpFinLar.API.Aplicacao.Transacoes;
+using MpFinLar.API.Dominio.Modelos;
 
 namespace MpFinLar.API.Controllers;
 
@@ -28,4 +29,11 @@ public sealed class TransacaoController : MainController
     {
         return Ok(await _aplicacao.ObterTransacoesDePessoaAsync(pessoaId, pularItens, quantidadeItens));
     }
+
+    [HttpGet("{categoriaId:guid}/valores-transacoes")]
+    public async Task<ActionResult<ValoresTransacoes>> ObterValoresPorCategoria(Guid categoriaId, int pularItens, int quantidadeItens)
+    {
+        return Ok(await _aplicacao.ObterValoresPorCategoriaAsync(categoriaId));
+    }
+
 }

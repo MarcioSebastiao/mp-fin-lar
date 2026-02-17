@@ -26,4 +26,5 @@ public interface IRepositorioTransacao
     Task<IEnumerable<TransacaoRespostaDTO>> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens, int quantidadeItens);
     Task<int> ObterTotalDeTransacoesDePessoaAsync(Guid pessoaId);
     Task<ValoresTransacoes> ObterValoresDePessoaAsync(Guid pessoaId);
+    Task<ValoresTransacoes> ObterValoresPorCategoriaAsync(Guid categoriaId);
 }

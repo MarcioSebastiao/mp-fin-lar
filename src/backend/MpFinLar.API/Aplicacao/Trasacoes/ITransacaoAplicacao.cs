@@ -20,4 +20,5 @@ public interface ITransacaoAplicacao
     /// Coleção de transações da pessoa no formato de resposta.
     /// </returns>
     Task<TransacoesRespostaDTO> ObterTransacoesDePessoaAsync(Guid pessoaId, int pularItens = 0, int quantidadeItens = 100);
+    Task<ValoresTransacaoRespostaDTO> ObterValoresPorCategoriaAsync(Guid categoriaId);
 }
