@@ -57,6 +57,7 @@ function FormPessoa({ pessoaInicial, titulo, textoBotao, onSubmit, aoSucesso }: 
                         min="0"
                         {...register("idade", {
                             required: "Informe uma idade para a pessoa.",
+                            max: { value: 200, message: "A idade máxima é 200 anos." },
                         })}
                     />
                 </div>
