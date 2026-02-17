@@ -162,6 +162,7 @@ Se a pessoa for menor de 18 anos:
 
 - Criar
 - Listar por pessoa
+- Listar por categoria
 
 ### Consulta de Totais
 
