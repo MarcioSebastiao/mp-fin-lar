@@ -85,7 +85,7 @@ function Transacoes() {
                     </button>
                 </div>
 
-                <div className="valores">
+                <div className="valores-transacoes">
                     <p>
                         Total em Despesas:
                         <span> {formatarMoeda(valoresTransacao.totalEmDespesas)}</span>

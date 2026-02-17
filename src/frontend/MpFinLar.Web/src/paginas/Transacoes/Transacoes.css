@@ -1,26 +1,17 @@
 .transacao h2 span {
-  text-align: left;
-  display: inline-block;
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    text-align: left;
+    display: inline-block;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.transacao .valores {
+.transacao .valores-transacoes {
     display: flex;
     justify-content: end;
     gap: 20px;
     margin-top: 20px;
     font-weight: bold;
     font-size: 1.1em;
-} 
-.transacao .valores span {
-    font-weight: normal;
-}
-.transacao .valores .positivo {
-    color: var(--cor-sucesso);
-}
-.transacao .valores .negativo {
-    color: var(--cor-erro);
 }

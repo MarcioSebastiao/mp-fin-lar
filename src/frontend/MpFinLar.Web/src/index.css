@@ -75,7 +75,8 @@ nav a:hover {
   color: var(--cor-primaria);
 }
 
-a {
+a,
+.destacar-cor {
   text-decoration: none;
   color: var(--cor-texto-destacado);
 }
@@ -153,7 +154,12 @@ td span {
   white-space: nowrap;
 }
 
-td:last-child div {
+td:last-of-type {
+  /* para última coluna da tabela se adaptar ao tamanho do conteudo*/
+  width: 1px;
+}
+
+td:last-of-type div {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -183,6 +189,23 @@ td .ambas {
 
 .icone:hover {
   stroke-width: 3;
+}
+
+.valores-transacoes {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.valores-transacoes span {
+  font-weight: normal;
+}
+
+.valores-transacoes .positivo {
+  color: var(--cor-sucesso);
+}
+
+.valores-transacoes .negativo {
+  color: var(--cor-erro);
 }
 
 .modal-fechar:hover {

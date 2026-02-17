@@ -1,0 +1,21 @@
+
+.modal .modal-valores-trasacoes>span{
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid var(--cor-borda);
+    font-weight: bold;
+}
+
+.lista-categoria table td:last-of-type{
+    color: var(--cor-texto-destacado);
+}
+
+.lista-categoria table td:last-of-type span{
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.lista-categoria table td:last-of-type span:hover{
+    color: var(--cor-primaria);
+}
