@@ -12,9 +12,10 @@ namespace MpFinLar.API.Dominio.Entidades;
 /// por meio do Padrão Notification, para evitar exceções no domínio.
 /// 
 /// </summary>
-public abstract class Entidade 
+public abstract class Entidade
 {
     public Guid Id { get; protected set; }
+    public DateTimeOffset DataCriacao { get; private set; }
 
     private readonly List<string> _notificacoes = new();
 
@@ -32,6 +33,7 @@ public abstract class Entidade
     public Entidade()
     {
         Id = Guid.CreateVersion7();
+        DataCriacao = DateTimeOffset.UtcNow;
     }
 
     /// <summary>

@@ -44,6 +44,7 @@ public sealed class RepositorioCategoria : IRepositorioCategoria
         return categoria => new CategoriaRespostaDTO
         {
             Id = categoria.Id,
+            DataCriacao = categoria.DataCriacao,
             Descricao = categoria.Descricao,
             Finalidade = categoria.Finalidade.ToString()
         };

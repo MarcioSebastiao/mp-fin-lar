@@ -89,6 +89,7 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
         return transacao => new TransacaoRespostaDTO
         {
             Id = transacao.Id,
+            DataCriacao = transacao.DataCriacao,
             Descricao = transacao.Descricao,
             Valor = transacao.Valor,
             Tipo = transacao.Tipo.ToString(),

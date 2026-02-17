@@ -1,8 +1,7 @@
 namespace MpFinLar.API.Aplicacao.Pessoas;
 
-public sealed class PessoaRespostaDTO
+public sealed class PessoaRespostaDTO: RespostaDTO
 {
-    public Guid Id { get; set; }
     public string Nome { get; set; } = string.Empty;
     public int Idade { get; set; }
 }

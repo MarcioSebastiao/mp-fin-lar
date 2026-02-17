@@ -68,6 +68,7 @@ public sealed class RepositorioPessoa : IRepositorioPessoa
         return pessoa => new PessoaRespostaDTO
         {
             Id = pessoa.Id,
+            DataCriacao = pessoa.DataCriacao,
             Nome = pessoa.Nome,
             Idade = pessoa.Idade
         };
