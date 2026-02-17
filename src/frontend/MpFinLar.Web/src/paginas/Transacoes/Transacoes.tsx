@@ -104,6 +104,7 @@ function Transacoes() {
                         <thead>
                             <tr>
                                 <th>Descrição:</th>
+                                <th>Categoria:</th>
                                 <th>Tipo:</th>
                                 <th>Valor:</th>
                             </tr>
@@ -113,6 +114,9 @@ function Transacoes() {
                                 <tr key={transacao.id}>
                                     <td>
                                         <span>{transacao.descricao}</span>
+                                    </td>
+                                    <td>
+                                        <span>{transacao.categoria?.descricao}</span>
                                     </td>
                                     <td>
                                         <span className={transacao.tipo.toLocaleLowerCase()}>{transacao.tipo}</span>

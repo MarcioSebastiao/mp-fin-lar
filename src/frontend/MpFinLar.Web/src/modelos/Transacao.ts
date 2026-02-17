@@ -14,8 +14,8 @@ export interface TransacaoResposta {
     descricao: string;
     valor: number;
     tipo: string;
-    Categoria: Categoria;
-    Pessoa: Pessoa;
+    categoria: Categoria;
+    pessoa: Pessoa;
 }
 
 export interface ValoresTransacao {

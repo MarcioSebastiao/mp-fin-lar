@@ -92,6 +92,10 @@ public sealed class RepositorioTransacao : IRepositorioTransacao
             Descricao = transacao.Descricao,
             Valor = transacao.Valor,
             Tipo = transacao.Tipo.ToString(),
+            Categoria = new()
+            {
+                Descricao = transacao.Categoria.Descricao
+            }
         };
     }
 }
