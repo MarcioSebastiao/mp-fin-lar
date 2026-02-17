@@ -7,7 +7,8 @@ import FormPessoa from "../../componentes/Pessoa/FormPessoa";
 import { Link } from "react-router-dom";
 
 function Pessoas() {
-    const [modalAberto, setModalAberto] = useState(false);
+    const [modalAberto, setModalFormAberto] = useState(false);
+    const [modalDeleteAberto, setModalDeleteAberto] = useState(false);
     const [pessoaSelecionada, setPessoaSelecionada] = useState<Pessoa | null>(null);
     const [pessoas, setPessoas] = useState<Pessoa[]>([]);
     const [totalDeItens, setTotalDeItens] = useState(0);
@@ -38,12 +39,12 @@ function Pessoas() {
 
     function abrirCriacao() {
         setPessoaSelecionada(null);
-        setModalAberto(true);
+        setModalFormAberto(true);
     }
 
     function abrirEdicao(pessoa: Pessoa) {
         setPessoaSelecionada(pessoa);
-        setModalAberto(true);
+        setModalFormAberto(true);
     }
 
     function atualizarPessoaLista(pessoa: Pessoa) {
@@ -63,8 +64,8 @@ function Pessoas() {
 
     return (
         <>
-            <div className="container">
-                <Modal aberto={modalAberto} aoFechar={() => setModalAberto(false)}>
+            <div className="container pessoas">
+                <Modal aberto={modalAberto} aoFechar={() => setModalFormAberto(false)}>
                     <FormPessoa
                         pessoaInicial={pessoaSelecionada ?? undefined}
                         titulo={pessoaSelecionada ? "Editar Pessoa" : "Nova Pessoa"}
@@ -72,7 +73,7 @@ function Pessoas() {
                         onSubmit={(pessoaDto) => (pessoaSelecionada ? atualizarPessoa(pessoaSelecionada.id, pessoaDto) : criarPessoa(pessoaDto))}
                         aoSucesso={async (novaPessoa) => {
                             pessoaSelecionada ? atualizarPessoaLista(novaPessoa) : adicionarPessoaLista(novaPessoa);
-                            setModalAberto(false);
+                            setModalFormAberto(false);
                         }}
                     />
                 </Modal>
@@ -82,6 +83,28 @@ function Pessoas() {
                         Adicionar Pessoa
                     </button>
                 </div>
+
+                <Modal aberto={modalDeleteAberto} aoFechar={() => setModalDeleteAberto(false)}>
+                    <div className="remover-pessoa">
+                        <p>Tem certeza que deseja remover essa pessoa?</p>
+                        <div>
+                            <span>{pessoaSelecionada?.nome}</span>
+                            <span>{pessoaSelecionada?.idade} anos</span>
+                        </div>
+                        <div>
+                            <span
+                                onClick={async () => {
+                                    removerPessoa(pessoaSelecionada!.id)
+                                    setModalDeleteAberto(false);
+                                }}
+                            >
+                                Sim!
+                            </span>
+                            <button>Não!</button>
+                        </div>
+                    </div>
+                </Modal>
+
                 <div className="lista-pessoas">
                     <table>
                         <thead>
@@ -108,8 +131,14 @@ function Pessoas() {
                                             <button className="editar" onClick={() => abrirEdicao(pessoa)}>
                                                 Editar
                                             </button>
-                                            <button className="excluir" onClick={async () => removerPessoa(pessoa.id)}>
-                                                Excluir
+                                            <button
+                                                className="excluir"
+                                                onClick={() => {
+                                                    setPessoaSelecionada(pessoa);
+                                                    setModalDeleteAberto(true);
+                                                }}
+                                            >
+                                                Remover
                                             </button>
                                         </div>
                                     </td>

@@ -1,5 +1,4 @@
-
-.lista-pessoas table td:last-child  {
+.lista-pessoas table td:last-child {
     font-weight: 500;
 }
 
@@ -16,4 +15,41 @@
 .lista-pessoas table td:last-child button:last-of-type:hover {
     background-color: var(--cor-erro-hover);
 
+}
+
+.container.pessoas .modal .remover-pessoa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container.pessoas .modal .remover-pessoa div {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 25px;
+}
+
+.container.pessoas .modal .remover-pessoa p {
+    color: var(--cor-erro);
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.container.pessoas .modal .remover-pessoa div:first-of-type span {
+    max-width: 300px;
+    max-height: 100px;
+    overflow: auto;
+}
+
+.container.pessoas .modal .remover-pessoa div:last-of-type span {
+    color: var(--cor-erro);
+    font-size: 1.05rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.container.pessoas .modal .remover-pessoa div:last-of-type span:hover {
+    scale: 1.5;
 }
