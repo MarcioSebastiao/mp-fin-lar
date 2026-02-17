@@ -7,6 +7,9 @@
 ### Editar pessoa:
 ![form-editar-pessoa.png](../../docs/frontend-imagens/form-editar-pessoa.png)
 
+### Remover pessoa:
+![Modal-editar-pessoa.png](../../docs/frontend-imagens/pagina-pessoas-remover.png)
+
 ### Página categorias:
 ![pagina-categorias.png](../../docs/frontend-imagens/pagina-categorias.png)
 
