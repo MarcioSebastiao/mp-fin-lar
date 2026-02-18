@@ -19,6 +19,7 @@ builder.Services.AddControllers()
 
 builder.Services.ConfigurarSwagger();
 builder.Services.ConfigurarCors(builder.Configuration);
+builder.Services.AddMemoryCache();
 
 // Registra o DbContext Contexto no container de injeção de dependência
 builder.Services.AddDbContext<Contexto>(options =>

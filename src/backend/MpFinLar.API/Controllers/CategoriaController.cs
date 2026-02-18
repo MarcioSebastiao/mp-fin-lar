@@ -1,15 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MpFinLar.API.Aplicacao;
 using MpFinLar.API.Aplicacao.Categorias;
+using MpFinLar.API.Constantes;
 
 namespace MpFinLar.API.Controllers;
 
 public sealed class CategoriaController : MainController
 {
     private readonly ICategoriaAplicacao _aplicacao;
-    public CategoriaController(ICategoriaAplicacao aplicacao)
+    private readonly IMemoryCache _cache;
+
+    public CategoriaController(ICategoriaAplicacao aplicacao, IMemoryCache cache)
     {
         _aplicacao = aplicacao;
+        _cache = cache;
     }
 
     [HttpPost]
@@ -17,18 +22,24 @@ public sealed class CategoriaController : MainController
     {
         (CategoriaRespostaDTO? categoria, ResultadoAplicacao resultado) = await _aplicacao.CriarAsync(categoriaDto);
 
-        if (resultado.Sucesso)
-            return Ok(categoria);
+        if (!resultado.Sucesso)
+            return RespostaDeErro(resultado.Notificacoes);
 
-        return RespostaDeErro(resultado.Notificacoes);
+        _cache.Remove(CacheConstantes.CategoriasRespostaCacheKey);
+
+        return Ok(categoria);
     }
-
-
 
     [HttpGet]
     public async Task<ActionResult<CategoriasRespostaDTO>> Obter(int pularItens, int quantidadeItens)
     {
-        var categorias = await _aplicacao.ObterAsync(pularItens, quantidadeItens);
+        if (_cache.TryGetValue(CacheConstantes.CategoriasRespostaCacheKey, out CategoriasRespostaDTO? categorias))
+            return categorias!;
+
+        categorias = await _aplicacao.ObterAsync(pularItens, quantidadeItens);
+
+        _cache.Set(CacheConstantes.CategoriasRespostaCacheKey, categorias, TimeSpan.FromMinutes(10));
+
         return Ok(categorias);
     }
 
