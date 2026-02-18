@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mpfinlar-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: mpfinlar
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d
+    networks:
+      - mp-network
+
+  backend-api:
+    image: mpfinlar-api:latest
+    container_name: mpfinlar-api
+    build:
+      context: ../src/backend/
+      dockerfile: ./MpFinLar.API/Dockerfile
+    ports:
+      - "5149:5149"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "http://+:5149"
+      ConfiguracoesApp__OrigensPermitidas__0: "http://localhost:3055"
+      ConnectionStrings__DefaultConnection: User ID=postgres;Password=postgres123;Host=postgres;Port=5432;Database=mpfinlar;Pooling=true;
+    depends_on:
+      - postgres
+    networks:
+      - mp-network 
+
+  frontend:
+    image: mpfinlar-web:latest
+    container_name: mpfinlar-web
+    build:
+      context: ../src/frontend/MpFinLar.Web/
+      dockerfile: ./Dockerfile
+    ports:
+      - "3055:3000"
+    depends_on:
+      - backend-api 
+
+volumes:
+  postgres_data:
+
+networks:
+  mp-network:
+    name: mpfinlar-network
