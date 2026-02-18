@@ -257,3 +257,36 @@ npm run dev
 http://localhost:3333
 
 ```
+
+# Como Rodar o Projeto com Docker
+
+## Pré-requisitos
+
+- Docker
+- Docker Compose
+
+Verifique se estão instalados:
+
+```bash
+docker --version
+docker compose version
+```
+
+## Subindo o Ambiente
+
+**Na raiz do projeto, execute:**
+
+```bash
+cd ./docker
+docker compose up -d --build
+```
+
+## Após subir os containers:
+
+- API → http://localhost:5149/ (Swagger ui em: http://localhost:5149/swagger/index.html)
+
+- Frontend → http://localhost:3055/ 
+
+## Pronto! Só acessar:
+
+http://localhost:3055/
