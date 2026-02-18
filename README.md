@@ -79,6 +79,14 @@ A aplicação verifica a propriedade `EhValido` antes de realizar qualquer persi
 
 ---
 
+**Estratégia de Cache**
+
+Foi implementado cache em memória utilizando IMemoryCache para reduzir consultas repetidas ao banco em operações de leitura, como listagem de pessoas e categorias.
+
+O cache é invalidado automaticamente em operações de criação, edição ou exclusão, garantindo consistência dos dados.
+
+---
+
 ### Frontend
 
 - React
