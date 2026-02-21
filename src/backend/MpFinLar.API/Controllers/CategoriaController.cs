@@ -30,6 +30,18 @@ public sealed class CategoriaController : MainController
         return Ok(categoria);
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult> Remover(Guid id)
+    {
+        var resultado = await _aplicacao.RemoverAsync(id);
+        if (!resultado.Sucesso)
+            return RespostaDeErro(resultado.Notificacoes);
+
+        _cache.Remove(CacheConstantes.CategoriasRespostaCacheKey);
+        return Ok();
+    }
+
+
     [HttpGet]
     public async Task<ActionResult<CategoriasRespostaDTO>> Obter(int pularItens, int quantidadeItens)
     {

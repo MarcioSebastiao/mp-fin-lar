@@ -9,4 +9,6 @@ public interface IRepositorioCategoria
     Task<IEnumerable<CategoriaRespostaDTO>> ObterCategoriasAsync(int pularItens, int quantidadeItens);
     Task<int> ObterTotalDeItensAsync();
     Task<Categoria?> ObterPorIdAsync(Guid id);
+    Task<bool> CategoriaTemTransacoes(Guid id);
+    Task RemoverAsync(Guid id);
 }

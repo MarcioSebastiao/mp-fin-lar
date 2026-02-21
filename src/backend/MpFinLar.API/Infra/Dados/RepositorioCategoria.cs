@@ -36,6 +36,17 @@ public sealed class RepositorioCategoria : IRepositorioCategoria
         .Select(Mapear()).ToListAsync();
     }
 
+    public async Task<bool> CategoriaTemTransacoes(Guid id)
+    {
+        return await _contexto.Transacoes.AsNoTracking().AnyAsync(p => p.CategoriaId == id);
+    }
+
+    public async Task RemoverAsync(Guid id)
+    {
+        _contexto.Categorias.Where(c => c.Id == id).ExecuteDelete();
+        await _contexto.SaveChangesAsync();
+    }
+
     /// <summary>
     /// Expressão Linq para mapear de entidade Categoria para a DTO
     /// </summary>

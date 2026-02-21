@@ -1,5 +1,3 @@
-using MpFinLar.API.Dominio.Entidades;
-
 namespace MpFinLar.API.Aplicacao.Categorias;
 
 public interface ICategoriaAplicacao
@@ -19,4 +17,5 @@ public interface ICategoriaAplicacao
     /// Coleção de categorias no formato de resposta.
     /// </returns>
     Task<CategoriasRespostaDTO> ObterAsync(int pularItens = 0, int quantidadeItens = 100);
+    Task<ResultadoAplicacao> RemoverAsync(Guid id);
 }

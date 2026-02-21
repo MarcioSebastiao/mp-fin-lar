@@ -39,6 +39,15 @@ public sealed class CategoriaAplicacao : ICategoriaAplicacao
         };
     }
 
+    public async Task<ResultadoAplicacao> RemoverAsync(Guid id)
+    {
+        if (await _repositorio.CategoriaTemTransacoes(id))
+            return new(["Não é possível remover esta categoria porque existem transações vinculadas a ela."]);
+
+        await _repositorio.RemoverAsync(id);
+        return new(Array.Empty<string>());
+    }
+
     private CategoriaRespostaDTO? MapearParaResposta(Categoria categoria) => new()
     {
         Id = categoria!.Id,
