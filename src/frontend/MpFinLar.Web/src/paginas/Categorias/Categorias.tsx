@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import type { Categoria } from "../../modelos/Categoria";
-import { obterCategorias } from "../../servicos/categoriaServico";
+import { obterCategorias, removerCategoria } from "../../servicos/categoriaServico";
 import Modal from "../../componentes/Modal";
 import FormCategoria from "../../componentes/Pessoa/FormCategoria";
 import "./Categorias.css";
 import type { ValoresTransacao } from "../../modelos/Transacao";
 import { formatarMoeda } from "../../utilitarios/formatadores";
 import { obterValoresTransacoesPorCategoria } from "../../servicos/transacoesServico";
+import type { ErroAPI } from "../../modelos/ErrosApi";
+import { extrairMensagensErro } from "../../servicos/api";
 
 function Categorias() {
     const [modalFormAberto, setModalFormAberto] = useState(false);
@@ -22,6 +24,8 @@ function Categorias() {
             saldo: 0,
         },
     });
+    const [modalErrosAberto, setModalErrosAberto] = useState(false);
+    const [mensagensErroApi, setErro] = useState<string[]>();
 
     useEffect(() => {
         async function carregarCategorias() {
@@ -44,6 +48,20 @@ function Categorias() {
             } catch (erro) {}
         }
         carregar();
+    }
+
+    async function remover(id: string) {
+        try {
+            await removerCategoria(id);
+            setCategoria((pe) => pe.filter((p) => p.id !== id));
+        } catch (erro) {
+            if ((erro as ErroAPI).status == 500) {
+                alert("Erro inesperado. Por favor atualize e tente novamente!");
+                return;
+            }
+            setErro(extrairMensagensErro(erro));
+            setModalErrosAberto(true);
+        }
     }
 
     return (
@@ -83,6 +101,15 @@ function Categorias() {
                     </div>
                 </div>
             </Modal>
+
+            <Modal aberto={modalErrosAberto} aoFechar={() => setModalErrosAberto(false)}>
+                <div className="mensagens-erro">
+                    {mensagensErroApi?.map((erro) => (
+                        <span>{erro}</span>
+                    ))}
+                </div>
+            </Modal>
+
             <div className="container">
                 <div className="lista-categoria">
                     <table>
@@ -103,15 +130,21 @@ function Categorias() {
                                         <span className={categoria.finalidade.toLocaleLowerCase()}>{categoria.finalidade}</span>
                                     </td>
                                     <td>
-                                        <span
-                                            onClick={async () => {
-                                                const valores = await obterValoresTransacoesPorCategoria(categoria.id);
-                                                setValoresCategoria({ DescricaoCategoria: categoria.descricao, ValoresTransacao: valores });
-                                                setModalValoresAberto(true);
-                                            }}
-                                        >
-                                            Consultar Valores
-                                        </span>
+                                        <div>
+                                            <span
+                                                onClick={async () => {
+                                                    const valores = await obterValoresTransacoesPorCategoria(categoria.id);
+                                                    setValoresCategoria({ DescricaoCategoria: categoria.descricao, ValoresTransacao: valores });
+                                                    setModalValoresAberto(true);
+                                                }}
+                                            >
+                                                Consultar Valores
+                                            </span>
+
+                                            <button className="remover" onClick={() => remover(categoria.id)}>
+                                                Remover
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

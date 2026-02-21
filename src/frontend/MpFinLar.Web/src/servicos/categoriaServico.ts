@@ -9,3 +9,7 @@ export async function obterCategorias(pularItens: number = 0, quantidadeItens: n
     const response = await api.get(`/api/categoria?pularItens=${pularItens}&quantidadeItens=${quantidadeItens}`);
     return response.data as CategoriasResposta;
 }
+
+export async function removerCategoria(id: string): Promise<void> {
+    await api.delete(`/api/categoria/${id}`);
+}

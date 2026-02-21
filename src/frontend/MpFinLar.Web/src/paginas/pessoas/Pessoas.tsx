@@ -132,7 +132,7 @@ function Pessoas() {
                                                 Editar
                                             </button>
                                             <button
-                                                className="excluir"
+                                                className="remover"
                                                 onClick={() => {
                                                     setPessoaSelecionada(pessoa);
                                                     setModalDeleteAberto(true);

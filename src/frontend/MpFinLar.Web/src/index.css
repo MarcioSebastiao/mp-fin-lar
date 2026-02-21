@@ -4,7 +4,7 @@
   font-weight: 400;
   font-size: 16px;
 
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--cor-textos);
   background-color: #242424;
 
   font-synthesis: none;
@@ -24,6 +24,7 @@
   --cor-fundo: #275888;
   --cor-input: #FFFFFF;
 
+  --cor-textos: rgba(255, 255, 255, 0.87);
   --cor-texto-destacado: #646cff;
   --cor-texto-escuro: #333f49;
   --cor-texto-suave: #64748b;
@@ -167,7 +168,7 @@ td:last-of-type div {
 }
 
 td .receita {
-  color: var(--cor-sucesso);
+  color: var(--cor-sucesso); 
   font-weight: bold;
 }
 
@@ -179,6 +180,18 @@ td .despesa {
 td .ambas {
   font-weight: bold;
 }
+
+
+table td .remover{
+    background-color: var(--cor-erro);
+
+}
+
+table td .remover:hover{
+    background-color: var(--cor-erro-hover);
+
+}
+
 
 .icone {
   width: 25px;
