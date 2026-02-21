@@ -165,6 +165,7 @@ Se a pessoa for menor de 18 anos:
 
 - Criar
 - Listar
+- Remover (permitido somente quando não houver transações associadas)
 
 ### Transações
 
