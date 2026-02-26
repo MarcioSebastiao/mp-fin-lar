@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Pessoas;
 using MpFinLar.API.Aplicacao.Transacoes;
@@ -19,13 +18,9 @@ builder.Services.AddControllers()
 
 builder.Services.ConfigurarSwagger();
 builder.Services.ConfigurarCors(builder.Configuration);
+builder.Services.ConfigurarContextoBanco(builder.Configuration);
 builder.Services.AddMemoryCache();
 
-// Registra o DbContext Contexto no container de injeção de dependência
-builder.Services.AddDbContext<Contexto>(options =>
-        // Configura o Entity Framework Core para utilizar o PostgreSQL usando o provedor Npgsql
-        // Obtém a string de conexão "DefaultConnection" a partir do arquivo de configuração
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPessoaAplicacao, PessoaAplicacao>();
 builder.Services.AddScoped<ITransacaoAplicacao, TransacaoAplicacao>();
