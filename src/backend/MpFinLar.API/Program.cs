@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using MpFinLar.API.Aplicacao.Categorias;
 using MpFinLar.API.Aplicacao.Pessoas;
 using MpFinLar.API.Aplicacao.Transacoes;
@@ -8,14 +7,7 @@ using MpFinLar.API.Infra.Dados;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    // Configura o serializer para NÃO incluir no JSON propriedades com valor null.
-                    // Para reduzir o tamanho da resposta e evita enviar campos desnecessários na API.
-                    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-                });
-
+builder.Services.ConfigurarControllers();
 builder.Services.ConfigurarSwagger();
 builder.Services.ConfigurarCors(builder.Configuration);
 builder.Services.ConfigurarContextoBanco(builder.Configuration);
